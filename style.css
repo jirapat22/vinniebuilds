@@ -224,6 +224,15 @@ ul {
   font-weight: 700;
 }
 
+/* Over dark hero — switch to white */
+.sidenav.over-dark .sidenav__link {
+  color: rgba(255,255,255,0.82);
+  text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+}
+.sidenav.over-dark .sidenav__link:hover { color: var(--white); }
+.sidenav.over-dark .sidenav__link.active { color: var(--white); }
+.sidenav.over-dark .sidenav__link.active::before { background: var(--white); }
+
 .sidenav__link.active::before {
   content: '';
   position: absolute;
@@ -397,7 +406,8 @@ ul {
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(200, 169, 126, 0.12);
+  border: 1px solid rgba(59, 82, 196, 0.55);
+  box-shadow: 0 0 40px rgba(59, 82, 196, 0.12), 0 8px 40px rgba(0,0,0,0.35);
 }
 
 .hero__eyebrow {

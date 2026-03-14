@@ -351,6 +351,15 @@ function initNav() {
 
     sections.forEach(s => observer.observe(s));
   }
+
+  // Switch link colour: white over dark hero, blue over light sections
+  const hero = document.getElementById('hero');
+  if (hero) {
+    const heroObserver = new IntersectionObserver(([entry]) => {
+      sidenav.classList.toggle('over-dark', entry.isIntersecting);
+    }, { threshold: 0.1 });
+    heroObserver.observe(hero);
+  }
 }
 
 
