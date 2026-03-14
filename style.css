@@ -203,24 +203,24 @@ ul {
   display: block;
   font-size: 0.875rem;
   font-weight: 600;
-  color: rgba(255,255,255,0.88);
+  color: var(--blue);
   text-decoration: none;
   padding: 9px 12px;
   border-radius: var(--radius);
   transition: all var(--transition);
   position: relative;
-  text-shadow: 0 1px 8px rgba(0,0,0,0.7), 0 0 20px rgba(0,0,0,0.4);
+  text-shadow: none;
 }
 
 .sidenav__link:hover {
-  color: var(--white);
+  color: var(--blue-dark);
   background: transparent;
 }
 
 .sidenav__link.active {
-  color: var(--white);
+  color: var(--blue-dark);
   background: transparent;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .sidenav__link.active::before {
@@ -263,7 +263,7 @@ ul {
 .sidenav__admin {
   text-align: center;
   font-size: 0.72rem;
-  color: rgba(255,255,255,0.2);
+  color: rgba(59,82,196,0.3);
   text-decoration: none;
   transition: color var(--transition);
 }
