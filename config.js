@@ -10,7 +10,7 @@ const CONFIG = {
   // After deploying the api/ folder to Railway, paste the URL here.
   // Example: 'https://vinniebuilds-api.up.railway.app'
   // Leave as-is during local development — site falls back to static data.
-  API_URL: 'YOUR_RAILWAY_URL',
+  API_URL: 'https://vinniebuilds-production.up.railway.app',
 
   // ✏️  CLOUDINARY (for image uploads in the admin panel)
   // 1. Sign up at cloudinary.com (free)
