@@ -128,6 +128,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   buildFilterBar();
   renderGrid(allProjects);
+  renderPreviewGrid(allProjects);
 
   // Fetch fresh from API
   if (typeof CONFIG !== 'undefined' && CONFIG.API_READY) {
@@ -146,6 +147,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
       buildFilterBar();
       renderGrid(filteredProjects());
+      renderPreviewGrid(allProjects);
     } catch {
       // API down — cached/default data already shown
     }
@@ -246,6 +248,38 @@ function renderGrid(projects) {
   animateCards();
 }
 
+/* ── RENDER PREVIEW GRID (main page — 3 featured projects) ── */
+function renderPreviewGrid(projects) {
+  const grid = document.getElementById('projPreviewGrid');
+  if (!grid) return;
+
+  const featured = projects.filter(p => p.featured).slice(0, 3);
+  const items = featured.length ? featured : projects.slice(0, 3);
+
+  grid.innerHTML = items.map(p => {
+    const catName = getCategoryName(p.category_id);
+    return `
+      <a href="project.html?id=${encodeURIComponent(p.slug)}" class="pj-card">
+        ${p.cover_photo
+          ? `<img class="pj-card__img" src="${escapeHTML(p.cover_photo)}" alt="${escapeHTML(p.title)}" loading="lazy"
+                  onerror="this.style.display='none'">`
+          : `<div class="pj-card__placeholder">🪵</div>`
+        }
+        <div class="pj-card__overlay"></div>
+        <div class="pj-card__body">
+          ${catName ? `<span class="pj-card__cat">${escapeHTML(catName)}</span>` : ''}
+          <h2 class="pj-card__title">${escapeHTML(p.title)}</h2>
+          <p class="pj-card__meta">
+            ${p.year ? escapeHTML(String(p.year)) : ''}
+            ${p.year && p.client_type ? ' · ' : ''}
+            ${p.client_type ? escapeHTML(p.client_type.split('·')[0].trim()) : ''}
+          </p>
+        </div>
+      </a>
+    `;
+  }).join('');
+}
+
 /* ── HELPERS ── */
 function getCategoryName(id) {
   const cat = allCategories.find(c => c.id === id);
@@ -284,21 +318,35 @@ function animateCards() {
 
 /* ── MOBILE NAV ── */
 function initMobileNav() {
-  const burger = document.getElementById('navBurger');
-  const links  = document.getElementById('navLinks');
-  if (!burger || !links) return;
+  const burger    = document.getElementById('sidenavBurger');
+  const overlay   = document.getElementById('sidenavOverlay');
+  const sidenav   = document.getElementById('sidenav');
+  const adminLink = document.getElementById('sidenavAdminLink');
+  if (!burger || !sidenav) return;
+
+  if (adminLink && localStorage.getItem('vb_token')) {
+    adminLink.style.display = 'block';
+  }
+
+  function openNav() {
+    sidenav.classList.add('open');
+    burger.classList.add('active');
+    if (overlay) overlay.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeNav() {
+    sidenav.classList.remove('open');
+    burger.classList.remove('active');
+    if (overlay) overlay.style.display = 'none';
+    document.body.style.overflow = '';
+  }
 
   burger.addEventListener('click', () => {
-    const isOpen = links.classList.toggle('open');
-    burger.classList.toggle('active', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+    sidenav.classList.contains('open') ? closeNav() : openNav();
   });
+  if (overlay) overlay.addEventListener('click', closeNav);
 
-  links.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      links.classList.remove('open');
-      burger.classList.remove('active');
-      document.body.style.overflow = '';
-    });
+  sidenav.querySelectorAll('.sidenav__link, .sidenav__cta').forEach(a => {
+    a.addEventListener('click', closeNav);
   });
 }

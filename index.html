@@ -16,27 +16,36 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="projects.css" />
 </head>
 <body>
 
   <!-- ─────────────────────────────────────────
-       NAV
+       SIDE NAV
   ───────────────────────────────────────── -->
-  <nav class="nav" id="nav">
-    <a href="#hero" class="nav__logo">VinnieBuilds</a>
-    <button class="nav__burger" id="navBurger" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav__links" id="navLinks">
-      <li><a href="#about">About</a></li>
-      <li><a href="#process">Process</a></li>
-      <li><a href="#products">Products</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#instagram">Instagram</a></li>
-      <li><a href="#contact" class="nav__cta">Get in Touch</a></li>
-    </ul>
-  </nav>
+  <button class="sidenav__burger" id="sidenavBurger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="sidenav__overlay" id="sidenavOverlay"></div>
+
+  <aside class="sidenav" id="sidenav">
+    <a href="#hero" class="sidenav__logo">VinnieBuilds</a>
+
+    <nav class="sidenav__nav">
+      <a href="#about"            class="sidenav__link" data-section="about">About</a>
+      <a href="#process"          class="sidenav__link" data-section="process">Process</a>
+      <a href="#products"         class="sidenav__link" data-section="products">Products</a>
+      <a href="#projects-preview" class="sidenav__link" data-section="projects-preview">Projects</a>
+      <a href="#services"         class="sidenav__link" data-section="services">Services</a>
+      <a href="#instagram"        class="sidenav__link" data-section="instagram">Instagram</a>
+      <a href="#contact"          class="sidenav__link" data-section="contact">Contact</a>
+    </nav>
+
+    <div class="sidenav__bottom">
+      <a href="#contact" class="sidenav__cta">Get in Touch</a>
+      <a href="admin.html" class="sidenav__admin" id="sidenavAdminLink" style="display:none">⚙ Admin</a>
+    </div>
+  </aside>
 
   <!-- ─────────────────────────────────────────
        HERO
@@ -121,6 +130,26 @@
         <p class="products__category-desc">Custom furniture, tables, shelves, bedframes — built to last.</p>
         <!-- Rendered by JS from BIG_BUILDS array in main.js -->
         <div class="product-grid" id="bigBuildsGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────
+       PROJECTS PREVIEW
+  ───────────────────────────────────────── -->
+  <section class="proj-preview section" id="projects-preview">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Past Work</span>
+        <h2 class="section-title">Featured Projects.</h2>
+        <p style="color:var(--text-light);margin-top:12px;font-size:1.05rem">
+          A selection of recent builds — furniture, joinery, and small goods.
+        </p>
+      </div>
+      <!-- Rendered by JS — shows 3 featured projects -->
+      <div class="proj-preview__grid" id="projPreviewGrid"></div>
+      <div class="proj-preview__footer">
+        <a href="projects.html" class="btn btn--outline">Browse all projects →</a>
       </div>
     </div>
   </section>
@@ -274,6 +303,7 @@
   </footer>
 
   <script src="config.js"></script>
+  <script src="projects.js"></script>
   <script src="main.js"></script>
 </body>
 </html>

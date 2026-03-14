@@ -18,20 +18,28 @@
 </head>
 <body class="projects-page">
 
-  <!-- NAV -->
-  <nav class="nav nav--solid nav--overlay" id="nav">
-    <a href="index.html" class="nav__logo">VinnieBuilds</a>
-    <button class="nav__burger" id="navBurger" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav__links" id="navLinks">
-      <li><a href="index.html#about">About</a></li>
-      <li><a href="index.html#products">Products</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="index.html#services">Services</a></li>
-      <li><a href="index.html#contact" class="nav__cta">Get in Touch</a></li>
-    </ul>
-  </nav>
+  <!-- SIDE NAV -->
+  <button class="sidenav__burger" id="sidenavBurger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="sidenav__overlay" id="sidenavOverlay"></div>
+
+  <aside class="sidenav" id="sidenav">
+    <a href="index.html" class="sidenav__logo">VinnieBuilds</a>
+
+    <nav class="sidenav__nav">
+      <a href="index.html#about"     class="sidenav__link">About</a>
+      <a href="index.html#products"  class="sidenav__link">Products</a>
+      <a href="projects.html"        class="sidenav__link active">Projects</a>
+      <a href="index.html#services"  class="sidenav__link">Services</a>
+      <a href="index.html#contact"   class="sidenav__link">Contact</a>
+    </nav>
+
+    <div class="sidenav__bottom">
+      <a href="index.html#contact" class="sidenav__cta">Get in Touch</a>
+      <a href="admin.html" class="sidenav__admin" id="sidenavAdminLink" style="display:none">⚙ Admin</a>
+    </div>
+  </aside>
 
   <!-- HERO -->
   <div class="pd-hero" id="pdHero">

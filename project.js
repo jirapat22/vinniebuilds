@@ -204,22 +204,36 @@ function showError(msg) {
 
 /* ── NAV ── */
 function initNav() {
-  const burger = document.getElementById('navBurger');
-  const links  = document.getElementById('navLinks');
-  if (!burger || !links) return;
+  const burger    = document.getElementById('sidenavBurger');
+  const overlay   = document.getElementById('sidenavOverlay');
+  const sidenav   = document.getElementById('sidenav');
+  const adminLink = document.getElementById('sidenavAdminLink');
+  if (!burger || !sidenav) return;
+
+  if (adminLink && localStorage.getItem('vb_token')) {
+    adminLink.style.display = 'block';
+  }
+
+  function openNav() {
+    sidenav.classList.add('open');
+    burger.classList.add('active');
+    if (overlay) overlay.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeNav() {
+    sidenav.classList.remove('open');
+    burger.classList.remove('active');
+    if (overlay) overlay.style.display = 'none';
+    document.body.style.overflow = '';
+  }
 
   burger.addEventListener('click', () => {
-    const isOpen = links.classList.toggle('open');
-    burger.classList.toggle('active', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+    sidenav.classList.contains('open') ? closeNav() : openNav();
   });
+  if (overlay) overlay.addEventListener('click', closeNav);
 
-  links.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      links.classList.remove('open');
-      burger.classList.remove('active');
-      document.body.style.overflow = '';
-    });
+  sidenav.querySelectorAll('.sidenav__link, .sidenav__cta').forEach(a => {
+    a.addEventListener('click', closeNav);
   });
 }
 
