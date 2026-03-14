@@ -27,10 +27,11 @@ const pool = new Pool({
 });
 
 /* ── Middleware ── */
+const allowedOrigins = process.env.ALLOWED_ORIGINS || '*';
 app.use(cors({
-  origin: process.env.ALLOWED_ORIGINS
-    ? process.env.ALLOWED_ORIGINS.split(',').map(s => s.trim())
-    : '*',
+  origin: allowedOrigins === '*'
+    ? '*'
+    : allowedOrigins.split(',').map(s => s.trim()),
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
