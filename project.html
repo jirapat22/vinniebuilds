@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="pageTitle">Project — VinnieBuilds</title>
+  <meta name="description" id="pageDesc" content="A handcrafted project by VinnieBuilds, NZ." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="projects.css" />
+</head>
+<body class="projects-page">
+
+  <!-- NAV -->
+  <nav class="nav nav--solid nav--overlay" id="nav">
+    <a href="index.html" class="nav__logo">VinnieBuilds</a>
+    <button class="nav__burger" id="navBurger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#products">Products</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#contact" class="nav__cta">Get in Touch</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="pd-hero" id="pdHero">
+    <img class="pd-hero__img" id="pdHeroImg" src="" alt="" />
+    <div class="pd-hero__overlay"></div>
+    <div class="pd-hero__content container">
+      <div class="pd-hero__nav">
+        <a href="projects.html" class="pd-back">← All Projects</a>
+      </div>
+      <span class="pd-hero__cat" id="pdCat"></span>
+      <h1 class="pd-hero__title" id="pdTitle">Loading…</h1>
+      <div class="pd-hero__meta" id="pdMeta"></div>
+    </div>
+  </div>
+
+  <!-- PROJECT BODY -->
+  <section class="pd-body" id="pdBody">
+    <div class="container">
+      <!-- Description + Sidebar -->
+      <div class="pd-body__grid">
+        <div>
+          <div class="pd-body__desc" id="pdDesc"></div>
+        </div>
+        <aside class="pd-sidebar" id="pdSidebar"></aside>
+      </div>
+
+      <!-- Photo Gallery -->
+      <div class="pd-gallery" id="pdGallery"></div>
+    </div>
+  </section>
+
+  <!-- ENQUIRE CTA -->
+  <section class="pd-enquire">
+    <div class="container">
+      <span class="section-label">Like what you see?</span>
+      <h2>Want something similar?</h2>
+      <p>Every piece is one-of-a-kind. Let's talk about what you have in mind.</p>
+      <a href="index.html#contact" class="btn btn--red" id="pdEnquireBtn">Enquire about this project</a>
+    </div>
+  </section>
+
+  <!-- PREV / NEXT -->
+  <nav class="pd-prevnext" id="pdPrevNext">
+    <div class="pd-prevnext__inner">
+      <a href="#" class="pd-prevnext__item pd-prevnext__item--prev pd-prevnext__item--disabled" id="pdPrev">
+        <p class="pd-prevnext__dir">← Previous</p>
+        <p class="pd-prevnext__title" id="pdPrevTitle">—</p>
+      </a>
+      <a href="#" class="pd-prevnext__item pd-prevnext__item--next pd-prevnext__item--disabled" id="pdNext">
+        <p class="pd-prevnext__dir">Next →</p>
+        <p class="pd-prevnext__title" id="pdNextTitle">—</p>
+      </a>
+    </div>
+  </nav>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <a href="index.html" class="footer__logo">VinnieBuilds</a>
+      <p class="footer__tagline">Handcrafted in Aotearoa New Zealand</p>
+      <nav class="footer__nav">
+        <a href="index.html#about">About</a>
+        <a href="index.html#products">Products</a>
+        <a href="projects.html">Projects</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="https://instagram.com/vinnie_builds" target="_blank" rel="noopener">Instagram</a>
+      </nav>
+      <p class="footer__copy">&copy; <span id="footerYear"></span> VinnieBuilds. All rights reserved.</p>
+      <a href="admin.html" class="footer__admin-link" id="footerAdminLink" style="display:none">Admin</a>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="projects.js"></script>
+  <script src="project.js"></script>
+</body>
+</html>

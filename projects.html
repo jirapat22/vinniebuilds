@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects — VinnieBuilds</title>
+  <meta name="description" content="Browse past work by VinnieBuilds — furniture, small goods, fit-outs and more. Handcrafted in New Zealand." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="projects.css" />
+</head>
+<body class="projects-page">
+
+  <!-- NAV (scrolled state always active — no hero below) -->
+  <nav class="nav nav--solid" id="nav">
+    <a href="index.html" class="nav__logo">VinnieBuilds</a>
+    <button class="nav__burger" id="navBurger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#process">Process</a></li>
+      <li><a href="index.html#products">Products</a></li>
+      <li><a href="projects.html" class="nav__active">Projects</a></li>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#instagram">Instagram</a></li>
+      <li><a href="index.html#contact" class="nav__cta">Get in Touch</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header class="pj-header">
+    <div class="pj-header__bg"></div>
+    <div class="container pj-header__content">
+      <a href="index.html" class="pj-back">← Back to site</a>
+      <p class="pj-header__label">Portfolio</p>
+      <h1 class="pj-header__title">Past Projects</h1>
+      <p class="pj-header__sub">Furniture, small goods &amp; bespoke builds — each one made by hand in NZ.</p>
+    </div>
+  </header>
+
+  <!-- FILTER BAR -->
+  <div class="pj-filter" id="filterBar">
+    <div class="container pj-filter__inner">
+      <button class="pj-filter__btn active" data-cat="all">All</button>
+      <!-- Category buttons injected by JS -->
+    </div>
+  </div>
+
+  <!-- PROJECTS GRID -->
+  <main class="pj-main">
+    <div class="container">
+      <div class="pj-grid" id="projectsGrid">
+        <!-- Cards injected by JS -->
+      </div>
+      <p class="pj-empty" id="projectsEmpty" style="display:none">No projects in this category yet.</p>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <a href="index.html" class="footer__logo">VinnieBuilds</a>
+      <p class="footer__tagline">Handcrafted in Aotearoa New Zealand</p>
+      <nav class="footer__nav">
+        <a href="index.html#about">About</a>
+        <a href="index.html#products">Products</a>
+        <a href="projects.html">Projects</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="https://instagram.com/vinnie_builds" target="_blank" rel="noopener">Instagram</a>
+      </nav>
+      <p class="footer__copy">&copy; <span id="footerYear"></span> VinnieBuilds. All rights reserved.</p>
+      <a href="admin.html" class="footer__admin-link" id="footerAdminLink" style="display:none">Admin</a>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="projects.js"></script>
+</body>
+</html>

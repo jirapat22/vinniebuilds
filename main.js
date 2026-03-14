@@ -1,0 +1,507 @@
+/* ============================================================
+   VinnieBuilds — main.js
+   All editable content is at the TOP of this file.
+   Look for the ✏️  comments to find what you can change.
+   ============================================================ */
+
+// ─────────────────────────────────────────────────────────────
+// ✏️  EDIT YOUR PROCESS STEPS HERE
+// Fields: icon (emoji), title, description
+// ─────────────────────────────────────────────────────────────
+const PROCESS_STEPS = [
+  {
+    icon: "☕",
+    title: "Chat",
+    description: "We start with a conversation — tell me what you're dreaming of, your space, your style, and your budget."
+  },
+  {
+    icon: "✏️",
+    title: "Design",
+    description: "I sketch up ideas and we refine them together until the design feels exactly right for you."
+  },
+  {
+    icon: "🪵",
+    title: "Build",
+    description: "I source beautiful sustainably-grown timber and get to work in my NZ workshop, crafting every detail by hand."
+  },
+  {
+    icon: "🚚",
+    title: "Deliver",
+    description: "Your piece arrives carefully wrapped, ready to find its home. I follow up to make sure it's perfect."
+  }
+];
+
+// ─────────────────────────────────────────────────────────────
+// ✏️  EDIT YOUR SMALL GOODS HERE
+// Fields: image (put file in images/ folder), title, description, price (optional — remove to hide)
+// ─────────────────────────────────────────────────────────────
+const SMALL_GOODS = [
+  {
+    image: "images/small-1.jpg",
+    title: "Wooden Cheese Board",
+    description: "Hand-shaped rimu cheese board with juice groove. A perfect housewarming gift.",
+    price: "$65 NZD"
+  },
+  {
+    image: "images/small-2.jpg",
+    title: "Bud Vase Set",
+    description: "Set of three turned wooden bud vases — each one subtly different, beautifully unique.",
+    price: "$48 NZD"
+  },
+  {
+    image: "images/small-3.jpg",
+    title: "Oak Serving Spoon",
+    description: "Hand-carved solid oak serving spoon. Smooth, food-safe finish, built to last.",
+    price: "$34 NZD"
+  },
+  {
+    image: "images/small-4.jpg",
+    title: "Peg Hooks Rail",
+    description: "Slim wall-mounted rail with three solid brass pegs. Perfect for entryways.",
+    price: "$79 NZD"
+  },
+  {
+    image: "images/small-5.jpg",
+    title: "Trinket Tray",
+    description: "A little catch-all tray carved from a single piece of timber. Desk essential.",
+    price: "$42 NZD"
+  },
+  {
+    image: "images/small-6.jpg",
+    title: "Gift Box Set",
+    description: "Seasonal gift sets — locally made, beautifully wrapped. Contact for current stock.",
+    price: "From $55 NZD"
+  }
+];
+
+// ─────────────────────────────────────────────────────────────
+// ✏️  EDIT YOUR BIG BUILDS HERE
+// Fields: image, title, description, price (optional — use "POA" or remove)
+// ─────────────────────────────────────────────────────────────
+const BIG_BUILDS = [
+  {
+    image: "images/big-1.jpg",
+    title: "Dining Table — Blackwood",
+    description: "6-seat dining table in Australian blackwood. Waterfall edge, hairpin legs. 1800 × 900mm.",
+    price: "POA"
+  },
+  {
+    image: "images/big-2.jpg",
+    title: "Floating Bedhead",
+    description: "King-size bedhead in white oak with integrated reading lights and bedside ledges.",
+    price: "POA"
+  },
+  {
+    image: "images/big-3.jpg",
+    title: "Shelving Unit",
+    description: "Modular open shelving in solid pine. Four adjustable shelves, floor-to-ceiling options available.",
+    price: "From $950 NZD"
+  },
+  {
+    image: "images/big-4.jpg",
+    title: "Coffee Table",
+    description: "Live-edge coffee table in native NZ timber. No two are alike — each piece celebrates the grain.",
+    price: "POA"
+  },
+  {
+    image: "images/big-5.jpg",
+    title: "Kitchen Bench Seats",
+    description: "Built-in bench seating for kitchen nooks or bay windows. Custom sizes available.",
+    price: "POA"
+  },
+  {
+    image: "images/big-6.jpg",
+    title: "Entryway Console",
+    description: "Slim, elegant console table with a single lower shelf. Perfect for hallways.",
+    price: "From $650 NZD"
+  }
+];
+
+// ─────────────────────────────────────────────────────────────
+// ✏️  EDIT YOUR SERVICES HERE
+// Fields: icon (emoji), title, description, cta (link text)
+// ─────────────────────────────────────────────────────────────
+const SERVICES = [
+  {
+    icon: "🪑",
+    title: "Custom Furniture",
+    description: "From dining tables to bedframes, I design and build bespoke pieces tailored to your space, style, and budget. Every piece is one-of-a-kind.",
+    cta: "Start a project"
+  },
+  {
+    icon: "🏠",
+    title: "Interior Fit-outs",
+    description: "Kitchen joinery, built-in shelving, bathroom vanities, TV units — I work with architects and homeowners to bring interiors to life.",
+    cta: "Discuss your space"
+  },
+  {
+    icon: "📐",
+    title: "Design Consultation",
+    description: "Not sure where to start? A one-on-one design session to talk through your space, material choices, and what's possible within your budget.",
+    cta: "Book a consult"
+  },
+  {
+    icon: "🎁",
+    title: "Corporate & Gifting",
+    description: "Branded wooden items, custom gift sets, and office pieces for businesses. Minimum orders apply — get in touch to discuss.",
+    cta: "Get a quote"
+  },
+  {
+    icon: "🔧",
+    title: "Repairs & Restoration",
+    description: "Got a piece of furniture that needs love? I restore, refinish, and repair timber furniture to bring it back to its former glory.",
+    cta: "Send a photo"
+  },
+  {
+    icon: "🌿",
+    title: "Sustainable Sourcing",
+    description: "I work exclusively with sustainably sourced NZ and Aussie timber, and reclaimed materials where possible. Good for your home, good for the planet.",
+    cta: "Learn more"
+  }
+];
+
+// ─────────────────────────────────────────────────────────────
+//  END OF EDITABLE CONTENT — don't edit below unless you know
+//  what you're doing 🙂
+// ─────────────────────────────────────────────────────────────
+
+// Active data — starts as static defaults, replaced by API data if available
+let activeData = {
+  process_steps: PROCESS_STEPS,
+  small_goods:   SMALL_GOODS,
+  big_builds:    BIG_BUILDS,
+  services:      SERVICES,
+};
+
+/* ── DOM READY ── */
+document.addEventListener('DOMContentLoaded', async () => {
+
+  // Footer year
+  document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+  // Show admin link in footer if logged in
+  if (localStorage.getItem('vb_token')) {
+    const link = document.getElementById('footerAdminLink');
+    if (link) link.style.display = 'inline';
+  }
+
+  // 1. Render immediately from localStorage cache or static defaults
+  const cached = localStorage.getItem('vb_content');
+  if (cached) {
+    try { Object.assign(activeData, JSON.parse(cached)); } catch {}
+  }
+  renderAll();
+
+  // 2. Fetch fresh data from Railway API in background
+  if (typeof CONFIG !== 'undefined' && CONFIG.API_READY) {
+    try {
+      const res = await Promise.race([
+        fetch(`${CONFIG.API_URL}/api/content`),
+        new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 5000))
+      ]);
+      if (res.ok) {
+        const data = await res.json();
+        // Merge API data, keeping static defaults for any missing keys
+        const merged = {
+          process_steps: data.process_steps || PROCESS_STEPS,
+          small_goods:   data.small_goods   || SMALL_GOODS,
+          big_builds:    data.big_builds    || BIG_BUILDS,
+          services:      data.services      || SERVICES,
+        };
+        // Only re-render if data actually changed
+        if (JSON.stringify(merged) !== JSON.stringify(activeData)) {
+          Object.assign(activeData, merged);
+          localStorage.setItem('vb_content', JSON.stringify(merged));
+          renderAll();
+        }
+      }
+    } catch {
+      // API unavailable — static/cached data already rendered, nothing to do
+    }
+  }
+
+  // UI interactions
+  initNav();
+  initContactForm();
+
+  // Wait for GSAP to be available (loaded via CDN defer)
+  waitForGSAP(() => {
+    initHeroAnimations();
+    initScrollAnimations();
+    initParallax();
+  });
+});
+
+
+/* ── RENDER ALL ── */
+function renderAll() {
+  renderProcessSteps();
+  renderProductGrid('smallGoodsGrid', activeData.small_goods);
+  renderProductGrid('bigBuildsGrid',  activeData.big_builds);
+  renderServices();
+}
+
+/* ── RENDER: PROCESS STEPS ── */
+function renderProcessSteps() {
+  const container = document.getElementById('processSteps');
+  if (!container) return;
+
+  container.innerHTML = activeData.process_steps.map((step, i) => `
+    <div class="process-step reveal">
+      <span class="process-step__icon">${step.icon}</span>
+      <div class="process-step__number">${i + 1}</div>
+      <h3>${escapeHTML(step.title)}</h3>
+      <p>${escapeHTML(step.description)}</p>
+    </div>
+  `).join('');
+}
+
+
+/* ── RENDER: PRODUCT GRID ── */
+function renderProductGrid(containerId, items) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  container.innerHTML = items.map(item => `
+    <div class="product-card reveal">
+      <div class="product-card__img-wrap">
+        <img
+          src="${escapeHTML(item.image)}"
+          alt="${escapeHTML(item.title)}"
+          loading="lazy"
+          onerror="this.parentElement.style.background='linear-gradient(135deg,#e8dfd0,#d4c4ac)';this.style.display='none'"
+        />
+      </div>
+      <div class="product-card__body">
+        <h4 class="product-card__title">${escapeHTML(item.title)}</h4>
+        <p class="product-card__desc">${escapeHTML(item.description)}</p>
+        ${item.price ? `<span class="product-card__price">${escapeHTML(item.price)}</span>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+
+/* ── RENDER: SERVICES ── */
+function renderServices() {
+  const container = document.getElementById('servicesGrid');
+  if (!container) return;
+
+  container.innerHTML = activeData.services.map(service => `
+    <div class="service-card reveal">
+      <span class="service-card__icon">${service.icon}</span>
+      <h3 class="service-card__title">${escapeHTML(service.title)}</h3>
+      <p class="service-card__desc">${escapeHTML(service.description)}</p>
+      <a href="#contact" class="service-card__cta">${escapeHTML(service.cta)}</a>
+    </div>
+  `).join('');
+}
+
+
+/* ── NAV ── */
+function initNav() {
+  const nav = document.getElementById('nav');
+  const burger = document.getElementById('navBurger');
+  const links = document.getElementById('navLinks');
+
+  // Scrolled state
+  const onScroll = () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Mobile burger
+  burger.addEventListener('click', () => {
+    const isOpen = links.classList.toggle('open');
+    burger.classList.toggle('active', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  // Close mobile menu on link click
+  links.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      links.classList.remove('open');
+      burger.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  });
+}
+
+
+/* ── CONTACT FORM ── */
+function initContactForm() {
+  const form = document.getElementById('contactForm');
+  const success = document.getElementById('formSuccess');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    const action = form.getAttribute('action');
+    // If still using placeholder, let default HTML submit work
+    if (action.includes('YOUR_FORM_ID')) return;
+
+    e.preventDefault();
+    const btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    try {
+      const res = await fetch(action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      });
+
+      if (res.ok) {
+        form.reset();
+        success.style.display = 'block';
+        btn.textContent = 'Sent!';
+      } else {
+        btn.textContent = 'Try again';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Try again';
+      btn.disabled = false;
+    }
+  });
+}
+
+
+/* ── GSAP: HERO ANIMATIONS ── */
+function initHeroAnimations() {
+  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+  tl.fromTo('.hero__eyebrow',
+      { opacity: 0, y: 24 },
+      { opacity: 1, y: 0, duration: 0.8 }, 0.2)
+    .fromTo('.hero__wordmark',
+      { opacity: 0, y: 48 },
+      { opacity: 1, y: 0, duration: 1.0 }, 0.42)
+    .fromTo('.hero__tagline',
+      { opacity: 0, y: 32 },
+      { opacity: 1, y: 0, duration: 0.9 }, 0.68)
+    .fromTo('.hero__actions',
+      { opacity: 0, y: 24 },
+      { opacity: 1, y: 0, duration: 0.8 }, 0.9);
+}
+
+
+/* ── GSAP: PARALLAX ── */
+function initParallax() {
+  const parallax = document.getElementById('heroParallax');
+  if (!parallax) return;
+
+  gsap.to(parallax, {
+    yPercent: 30,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true
+    }
+  });
+}
+
+
+/* ── GSAP: SCROLL ANIMATIONS ── */
+function initScrollAnimations() {
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Generic .reveal elements (process steps, product cards, service cards)
+  gsap.utils.toArray('.reveal').forEach(el => {
+    gsap.fromTo(el,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.75,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 88%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+  });
+
+  // About section — image slides from left, text from right
+  gsap.fromTo('.about__image-wrap',
+    { opacity: 0, x: -60 },
+    {
+      opacity: 1, x: 0, duration: 0.9, ease: 'power2.out',
+      scrollTrigger: { trigger: '.about__grid', start: 'top 80%' }
+    }
+  );
+
+  gsap.fromTo('.about__text',
+    { opacity: 0, x: 60 },
+    {
+      opacity: 1, x: 0, duration: 0.9, ease: 'power2.out',
+      scrollTrigger: { trigger: '.about__grid', start: 'top 80%' }
+    }
+  );
+
+  // Section headers
+  gsap.utils.toArray('.section-header').forEach(el => {
+    gsap.fromTo(el,
+      { opacity: 0, y: 36 },
+      {
+        opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 85%' }
+      }
+    );
+  });
+
+  // Contact grid
+  gsap.fromTo('.contact__intro',
+    { opacity: 0, x: -50 },
+    {
+      opacity: 1, x: 0, duration: 0.85, ease: 'power2.out',
+      scrollTrigger: { trigger: '.contact__grid', start: 'top 80%' }
+    }
+  );
+
+  gsap.fromTo('.contact__form-wrap',
+    { opacity: 0, x: 50 },
+    {
+      opacity: 1, x: 0, duration: 0.85, ease: 'power2.out',
+      scrollTrigger: { trigger: '.contact__grid', start: 'top 80%' }
+    }
+  );
+
+  // Instagram placeholders stagger
+  gsap.fromTo('.instagram__placeholder',
+    { opacity: 0, scale: 0.9 },
+    {
+      opacity: 1, scale: 1, duration: 0.5, stagger: 0.07, ease: 'power2.out',
+      scrollTrigger: { trigger: '.instagram__grid', start: 'top 85%' }
+    }
+  );
+}
+
+
+/* ── UTILS ── */
+
+// Escape HTML to prevent XSS when inserting user-edited content
+function escapeHTML(str) {
+  const d = document.createElement('div');
+  d.appendChild(document.createTextNode(String(str)));
+  return d.innerHTML;
+}
+
+// Poll for GSAP availability (CDN scripts loaded with defer)
+function waitForGSAP(cb, attempts = 0) {
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    cb();
+  } else if (attempts < 50) {
+    setTimeout(() => waitForGSAP(cb, attempts + 1), 100);
+  } else {
+    console.warn('VinnieBuilds: GSAP did not load. Animations skipped.');
+    // Make elements visible without animation
+    document.querySelectorAll('.hero__eyebrow, .hero__wordmark, .hero__tagline, .hero__actions')
+      .forEach(el => { el.style.opacity = '1'; });
+  }
+}

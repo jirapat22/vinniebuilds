@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — VinnieBuilds</title>
+  <!-- No search engine indexing for admin -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-body">
+
+  <!-- ═══════════════════════════════════
+       LOGIN SCREEN
+  ═══════════════════════════════════ -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-box">
+      <a href="index.html" class="login-logo">VinnieBuilds</a>
+      <h1 class="login-title">Admin</h1>
+      <p class="login-sub">Sign in to manage site content</p>
+      <form class="login-form" id="loginForm" autocomplete="on">
+        <div class="a-form-group">
+          <label for="loginUsername">Username</label>
+          <input type="text" id="loginUsername" name="username" autocomplete="username" required placeholder="your username" />
+        </div>
+        <div class="a-form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" name="password" autocomplete="current-password" required placeholder="••••••••" />
+        </div>
+        <button type="submit" class="a-btn a-btn--primary a-btn--full" id="loginBtn">Sign In</button>
+        <p class="login-error" id="loginError"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       DASHBOARD (hidden until logged in)
+  ═══════════════════════════════════ -->
+  <div class="dashboard" id="dashboard" style="display:none">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar__top">
+        <a href="index.html" class="sidebar__logo">VinnieBuilds</a>
+        <span class="sidebar__tag">Admin</span>
+      </div>
+
+      <nav class="sidebar__nav">
+        <button class="sidebar__nav-item active" data-panel="content">
+          <span class="sidebar__nav-icon">📝</span> Site Content
+        </button>
+        <button class="sidebar__nav-item" data-panel="projects">
+          <span class="sidebar__nav-icon">🖼️</span> Projects
+        </button>
+        <button class="sidebar__nav-item" data-panel="categories">
+          <span class="sidebar__nav-icon">🗂️</span> Categories
+        </button>
+        <button class="sidebar__nav-item" data-panel="settings">
+          <span class="sidebar__nav-icon">⚙️</span> Settings
+        </button>
+      </nav>
+
+      <div class="sidebar__bottom">
+        <a href="index.html" target="_blank" class="sidebar__view-site">View site ↗</a>
+        <button class="sidebar__logout" id="logoutBtn">Sign out</button>
+        <p class="sidebar__user" id="sidebarUser"></p>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="dash-main" id="dashMain">
+
+      <!-- ── PANEL: SITE CONTENT ── -->
+      <div class="panel" id="panelContent" data-panel="content">
+        <div class="panel__header">
+          <h2 class="panel__title">Site Content</h2>
+          <p class="panel__sub">Edit the products, services, and process steps shown on the main page.</p>
+        </div>
+
+        <!-- Process Steps -->
+        <div class="content-section" id="sectionProcess">
+          <div class="content-section__head">
+            <h3>Process Steps</h3>
+            <button class="a-btn a-btn--sm a-btn--outline" onclick="addProcessStep()">+ Add Step</button>
+          </div>
+          <div class="item-list" id="processList"></div>
+        </div>
+
+        <!-- Small Goods -->
+        <div class="content-section" id="sectionSmallGoods">
+          <div class="content-section__head">
+            <h3>Small Goods</h3>
+            <button class="a-btn a-btn--sm a-btn--outline" onclick="addProduct('small_goods')">+ Add Item</button>
+          </div>
+          <div class="item-list" id="smallGoodsList"></div>
+        </div>
+
+        <!-- Big Builds -->
+        <div class="content-section" id="sectionBigBuilds">
+          <div class="content-section__head">
+            <h3>Big Builds</h3>
+            <button class="a-btn a-btn--sm a-btn--outline" onclick="addProduct('big_builds')">+ Add Item</button>
+          </div>
+          <div class="item-list" id="bigBuildsList"></div>
+        </div>
+
+        <!-- Services -->
+        <div class="content-section" id="sectionServices">
+          <div class="content-section__head">
+            <h3>Services</h3>
+            <button class="a-btn a-btn--sm a-btn--outline" onclick="addService()">+ Add Service</button>
+          </div>
+          <div class="item-list" id="servicesList"></div>
+        </div>
+      </div>
+
+      <!-- ── PANEL: PROJECTS ── -->
+      <div class="panel" id="panelProjects" data-panel="projects" style="display:none">
+        <div class="panel__header">
+          <h2 class="panel__title">Projects</h2>
+          <button class="a-btn a-btn--primary" id="addProjectBtn">+ New Project</button>
+        </div>
+        <div class="project-admin-grid" id="projectAdminGrid"></div>
+      </div>
+
+      <!-- ── PANEL: CATEGORIES ── -->
+      <div class="panel" id="panelCategories" data-panel="categories" style="display:none">
+        <div class="panel__header">
+          <h2 class="panel__title">Categories</h2>
+          <p class="panel__sub">Used to filter projects. Changes apply immediately to the Projects page.</p>
+        </div>
+        <div class="content-section">
+          <div class="content-section__head">
+            <h3>Project Categories</h3>
+            <button class="a-btn a-btn--sm a-btn--outline" onclick="addCategory()">+ Add Category</button>
+          </div>
+          <div class="item-list" id="categoriesList"></div>
+        </div>
+      </div>
+
+      <!-- ── PANEL: SETTINGS ── -->
+      <div class="panel" id="panelSettings" data-panel="settings" style="display:none">
+        <div class="panel__header">
+          <h2 class="panel__title">Settings</h2>
+        </div>
+
+        <div class="content-section">
+          <div class="content-section__head"><h3>Change Password</h3></div>
+          <form class="settings-form" id="changePasswordForm">
+            <div class="a-form-group">
+              <label>Current Password</label>
+              <input type="password" id="currentPassword" required />
+            </div>
+            <div class="a-form-group">
+              <label>New Password</label>
+              <input type="password" id="newPassword" required minlength="8" />
+            </div>
+            <div class="a-form-group">
+              <label>Confirm New Password</label>
+              <input type="password" id="confirmPassword" required minlength="8" />
+            </div>
+            <button type="submit" class="a-btn a-btn--primary">Update Password</button>
+            <p class="settings-msg" id="passwordMsg"></p>
+          </form>
+        </div>
+
+        <div class="content-section">
+          <div class="content-section__head"><h3>API Status</h3></div>
+          <div id="apiStatus" class="api-status">Checking…</div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       MODAL (shared for all edit forms)
+  ═══════════════════════════════════ -->
+  <div class="modal-backdrop" id="modalBackdrop" style="display:none">
+    <div class="modal" id="modal">
+      <div class="modal__header">
+        <h3 class="modal__title" id="modalTitle">Edit</h3>
+        <button class="modal__close" id="modalClose" aria-label="Close">✕</button>
+      </div>
+      <div class="modal__body" id="modalBody"></div>
+      <div class="modal__footer">
+        <button class="a-btn a-btn--ghost" id="modalCancel">Cancel</button>
+        <button class="a-btn a-btn--primary" id="modalSave">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notifications -->
+  <div class="toast" id="toast"></div>
+
+  <script src="config.js"></script>
+  <script src="projects.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

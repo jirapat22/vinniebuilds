@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VinnieBuilds — Carpenter, Maker & Designer · New Zealand</title>
+  <meta name="description" content="VinnieBuilds — handcrafted wooden goods, furniture, and bespoke builds by a NZ-based carpenter, maker and designer." />
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- GSAP + ScrollTrigger (CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ─────────────────────────────────────────
+       NAV
+  ───────────────────────────────────────── -->
+  <nav class="nav" id="nav">
+    <a href="#hero" class="nav__logo">VinnieBuilds</a>
+    <button class="nav__burger" id="navBurger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#instagram">Instagram</a></li>
+      <li><a href="#contact" class="nav__cta">Get in Touch</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─────────────────────────────────────────
+       HERO
+  ───────────────────────────────────────── -->
+  <section class="hero" id="hero">
+    <div class="hero__parallax" id="heroParallax"></div>
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <p class="hero__eyebrow">Carpenter · Maker · Designer</p>
+      <h1 class="hero__wordmark">VinnieBuilds</h1>
+      <p class="hero__tagline">Handcrafted with intention.<br>Built to last a lifetime.</p>
+      <div class="hero__actions">
+        <a href="#products" class="btn btn--primary">See the Work</a>
+        <a href="#contact" class="btn btn--ghost">Start a Project</a>
+      </div>
+    </div>
+    <a href="#about" class="hero__scroll" aria-label="Scroll down">
+      <span class="hero__scroll-line"></span>
+    </a>
+  </section>
+
+  <!-- ─────────────────────────────────────────
+       ABOUT
+  ───────────────────────────────────────── -->
+  <section class="about section" id="about">
+    <div class="container about__grid">
+      <div class="about__image-wrap">
+        <img
+          src="images/about.jpg"
+          alt="Vinnie in her workshop"
+          class="about__img"
+          loading="lazy"
+          onerror="this.style.background='#C8A97E';this.style.display='block';this.style.minHeight='500px'"
+        />
+      </div>
+      <div class="about__text">
+        <span class="section-label">About</span>
+        <h2 class="section-title">Built from scratch,<br>by hand.</h2>
+        <p>I'm Vinnie — a carpenter, maker, and designer based in Aotearoa New Zealand. I've spent years working with my hands, learning that the best things in a home are the ones made with care and built to outlast trends.</p>
+        <p>Whether it's a small wooden trinket for your shelf or a custom dining table for your family, every piece I make starts with a conversation and ends with something you'll keep forever.</p>
+        <p>Based in my workshop in New Zealand, I work with sustainably sourced timbers and a whole lot of love for the craft.</p>
+        <a href="#contact" class="btn btn--primary">Say hello</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────
+       PROCESS
+  ───────────────────────────────────────── -->
+  <section class="process section" id="process">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">How it works</span>
+        <h2 class="section-title">From idea to your door.</h2>
+      </div>
+      <!-- Steps are rendered by JS from PROCESS_STEPS array in main.js -->
+      <div class="process__steps" id="processSteps"></div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────
+       PRODUCTS
+  ───────────────────────────────────────── -->
+  <section class="products section" id="products">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Shop & Gallery</span>
+        <h2 class="section-title">The goods.</h2>
+      </div>
+
+      <!-- Small Goods -->
+      <div class="products__category">
+        <h3 class="products__category-title">Small Goods</h3>
+        <p class="products__category-desc">Trinkets, gifts, and little wooden wonders for everyday life.</p>
+        <!-- Rendered by JS from SMALL_GOODS array in main.js -->
+        <div class="product-grid" id="smallGoodsGrid"></div>
+      </div>
+
+      <!-- Big Builds -->
+      <div class="products__category">
+        <h3 class="products__category-title">Big Builds</h3>
+        <p class="products__category-desc">Custom furniture, tables, shelves, bedframes — built to last.</p>
+        <!-- Rendered by JS from BIG_BUILDS array in main.js -->
+        <div class="product-grid" id="bigBuildsGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────
+       SERVICES
+  ───────────────────────────────────────── -->
+  <section class="services section" id="services">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">What I offer</span>
+        <h2 class="section-title">Let's build something together.</h2>
+      </div>
+      <!-- Rendered by JS from SERVICES array in main.js -->
+      <div class="services__grid" id="servicesGrid"></div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────
+       INSTAGRAM FEED
+  ───────────────────────────────────────── -->
+  <section class="instagram section" id="instagram">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Follow along</span>
+        <h2 class="section-title">
+          <a href="https://instagram.com/vinnie_builds" target="_blank" rel="noopener" class="instagram__handle">@vinnie_builds</a>
+        </h2>
+      </div>
+
+      <!--
+        ════════════════════════════════════════════════
+        REAL INSTAGRAM FEED — HOW TO CONNECT (Behold.so)
+        ════════════════════════════════════════════════
+        1. Go to https://behold.so and sign up (free plan available)
+        2. Connect your Instagram account
+        3. Create a feed and copy the embed snippet
+        4. Replace the placeholder grid below with your Behold snippet
+           Example:
+             <behold-widget feed-id="YOUR_FEED_ID"></behold-widget>
+             <script src="https://w.behold.so/widget.js" type="module"></script>
+        ════════════════════════════════════════════════
+      -->
+
+      <!-- Placeholder grid — remove once Behold is connected -->
+      <div class="instagram__grid" id="instagramGrid">
+        <a href="https://instagram.com/vinnie_builds" target="_blank" rel="noopener" class="instagram__placeholder" aria-label="Instagram post placeholder"></a>
+        <a href="https://instagram.com/vinnie_builds" target="_blank" rel="noopener" class="instagram__placeholder" aria-label="Instagram post placeholder"></a>
+        <a href="https://instagram.com/vinnie_builds" target="_blank" rel="noopener" class="instagram__placeholder" aria-label="Instagram post placeholder"></a>
+        <a href="https://instagram.com/vinnie_builds" target="_blank" rel="noopener" class="instagram__placeholder" aria-label="Instagram post placeholder"></a>
+        <a href="https://instagram.com/vinnie_builds" target="_blank" rel="noopener" class="instagram__placeholder" aria-label="Instagram post placeholder"></a>
+        <a href="https://instagram.com/vinnie_builds" target="_blank" rel="noopener" class="instagram__placeholder" aria-label="Instagram post placeholder"></a>
+      </div>
+
+      <div class="instagram__cta">
+        <a href="https://instagram.com/vinnie_builds" target="_blank" rel="noopener" class="btn btn--outline">View on Instagram</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────
+       CONTACT
+  ───────────────────────────────────────── -->
+  <section class="contact section" id="contact">
+    <div class="container contact__grid">
+      <div class="contact__intro">
+        <span class="section-label">Get in Touch</span>
+        <h2 class="section-title">Got something in mind?</h2>
+        <p>Tell me about your project — big or small. I'd love to make something with you.</p>
+        <ul class="contact__info">
+          <li>
+            <span class="contact__info-label">Email</span>
+            <a href="mailto:hello@vinniebuilds.com">hello@vinniebuilds.com</a>
+          </li>
+          <li>
+            <span class="contact__info-label">Based in</span>
+            New Zealand
+          </li>
+          <li>
+            <span class="contact__info-label">Instagram</span>
+            <a href="https://instagram.com/vinnie_builds" target="_blank" rel="noopener">@vinnie_builds</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="contact__form-wrap">
+        <!--
+          ════════════════════════════════════════════
+          FORMSPREE — HOW TO CONNECT
+          ════════════════════════════════════════════
+          1. Go to https://formspree.io and create a free account
+          2. Create a new form and copy your unique form endpoint
+             e.g. https://formspree.io/f/abcdefgh
+          3. Replace the action URL below with your endpoint
+          ════════════════════════════════════════════
+        -->
+        <form
+          class="contact__form"
+          id="contactForm"
+          action="https://formspree.io/f/YOUR_FORM_ID"
+          method="POST"
+        >
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="Jane Smith" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="jane@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="project">What are you after?</label>
+            <select id="project" name="project">
+              <option value="" disabled selected>Select a type…</option>
+              <option value="small-goods">Small Goods / Gift</option>
+              <option value="custom-furniture">Custom Furniture</option>
+              <option value="interior-fitout">Interior Fit-out</option>
+              <option value="design-consult">Design Consultation</option>
+              <option value="other">Something else</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Tell me more</label>
+            <textarea id="message" name="message" rows="5" placeholder="Describe your project, size, timber preferences, timeline…" required></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary btn--full">Send Message</button>
+          <p class="form-success" id="formSuccess">Thanks! I'll be in touch soon.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────
+       FOOTER
+  ───────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <a href="#hero" class="footer__logo">VinnieBuilds</a>
+      <p class="footer__tagline">Handcrafted in Aotearoa New Zealand</p>
+      <nav class="footer__nav">
+        <a href="#about">About</a>
+        <a href="#products">Products</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+        <a href="https://instagram.com/vinnie_builds" target="_blank" rel="noopener">Instagram</a>
+      </nav>
+      <p class="footer__copy">&copy; <span id="footerYear"></span> VinnieBuilds. All rights reserved.</p>
+      <!-- Admin link — only visible when logged in (controlled by JS) -->
+      <a href="admin.html" class="footer__admin-link" id="footerAdminLink" style="display:none">Admin</a>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
