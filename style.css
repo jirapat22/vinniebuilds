@@ -201,8 +201,9 @@ ul {
 
 .sidenav__link {
   display: block;
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
   color: var(--blue);
   text-decoration: none;
   padding: 9px 12px;
