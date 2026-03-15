@@ -44,6 +44,7 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   overflow-x: hidden;
+  scroll-snap-type: y proximity;
 }
 
 body {
@@ -81,6 +82,7 @@ ul {
 
 .section {
   padding: 100px 0;
+  scroll-snap-align: start;
 }
 
 .section-header {
@@ -361,6 +363,7 @@ ul {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  scroll-snap-align: start;
   /* Break out of body padding to fill full viewport */
   margin-left: calc(-1 * var(--sidenav-w));
   width: 100vw;
@@ -1120,6 +1123,57 @@ ul {
     grid-template-columns: repeat(2, 1fr);
     gap: 6px;
   }
+}
+
+/* ── DOT NAV ── */
+.dot-nav {
+  position: fixed;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 900;
+}
+
+.dot-nav__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(44,44,44,0.25);
+  border: 1.5px solid rgba(44,44,44,0.2);
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.25s ease;
+}
+
+.dot-nav__dot:hover {
+  background: var(--blue);
+  border-color: var(--blue);
+  transform: scale(1.25);
+}
+
+.dot-nav__dot.active {
+  background: var(--blue);
+  border-color: var(--blue);
+  transform: scale(1.3);
+}
+
+/* Over dark sections — switch to white dots */
+.dot-nav.over-dark .dot-nav__dot {
+  background: rgba(255,255,255,0.3);
+  border-color: rgba(255,255,255,0.3);
+}
+.dot-nav.over-dark .dot-nav__dot:hover,
+.dot-nav.over-dark .dot-nav__dot.active {
+  background: var(--white);
+  border-color: var(--white);
+}
+
+@media (max-width: 768px) {
+  .dot-nav { right: 10px; gap: 8px; }
+  .dot-nav__dot { width: 7px; height: 7px; }
 }
 
 /* ── ACCESSIBILITY ── */

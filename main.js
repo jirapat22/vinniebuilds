@@ -222,6 +222,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // UI interactions
   initNav();
+  initDotNav();
   initContactForm();
 
   // Wait for GSAP to be available (loaded via CDN defer)
@@ -299,6 +300,40 @@ function renderServices() {
 
 
 /* ── NAV ── */
+function initDotNav() {
+  const sections = [...document.querySelectorAll('#hero, section[id]')];
+  if (!sections.length) return;
+
+  const nav = document.createElement('nav');
+  nav.className = 'dot-nav';
+  nav.setAttribute('aria-label', 'Page sections');
+
+  sections.forEach(section => {
+    const btn = document.createElement('button');
+    btn.className = 'dot-nav__dot';
+    btn.setAttribute('aria-label', `Go to ${section.id}`);
+    btn.dataset.target = section.id;
+    btn.addEventListener('click', () => section.scrollIntoView({ behavior: 'smooth' }));
+    nav.appendChild(btn);
+  });
+
+  document.body.appendChild(nav);
+
+  const dots = nav.querySelectorAll('.dot-nav__dot');
+  const darkSections = new Set(['hero', 'projects-preview']);
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const id = entry.target.id;
+      dots.forEach(d => d.classList.toggle('active', d.dataset.target === id));
+      nav.classList.toggle('over-dark', darkSections.has(id));
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+}
+
 function initNav() {
   const burger    = document.getElementById('sidenavBurger');
   const overlay   = document.getElementById('sidenavOverlay');
