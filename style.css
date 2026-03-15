@@ -43,6 +43,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  overflow-x: hidden;
 }
 
 body {
@@ -1019,11 +1020,13 @@ ul {
   }
 
   .hero {
-    margin-left: 0;
-    width: 100%;
+    margin-left: 0 !important;
+    width: 100% !important;
   }
 
   .sidenav {
+    width: min(260px, 80vw);
+    background: var(--charcoal);
     transform: translateX(-100%);
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -1032,12 +1035,26 @@ ul {
     transform: translateX(0);
   }
 
+  /* Force white links inside open dark drawer */
+  .sidenav .sidenav__link {
+    color: rgba(255,255,255,0.7) !important;
+    text-shadow: none !important;
+  }
+  .sidenav .sidenav__link:hover,
+  .sidenav .sidenav__link.active { color: var(--white) !important; }
+  .sidenav .sidenav__link.active::before { background: var(--blue) !important; }
+  .sidenav .sidenav__cta { display: block; }
+
   .sidenav__overlay {
     display: block; /* visibility controlled by JS inline style */
   }
 
   .sidenav__burger {
     display: flex;
+  }
+
+  .proj-preview__grid {
+    grid-template-columns: 1fr;
   }
 
   .section {
