@@ -12,22 +12,22 @@ const PROCESS_STEPS = [
   {
     icon: "☕",
     title: "Chat",
-    description: "We start with a conversation — tell me what you're dreaming of, your space, your style, and your budget."
+    description: "We start with a conversation — tell us what you're dreaming of, your space, your style, and your budget."
   },
   {
     icon: "✏️",
     title: "Design",
-    description: "I sketch up ideas and we refine them together until the design feels exactly right for you."
+    description: "We sketch up ideas and refine them together until the design feels exactly right for you."
   },
   {
     icon: "🪵",
     title: "Build",
-    description: "I source beautiful sustainably-grown timber and get to work in my NZ workshop, crafting every detail by hand."
+    description: "We source beautiful sustainably-grown timber and get to work in our NZ workshop, crafting every detail by hand."
   },
   {
     icon: "🚚",
     title: "Deliver",
-    description: "Your piece arrives carefully wrapped, ready to find its home. I follow up to make sure it's perfect."
+    description: "Your piece arrives carefully wrapped, ready to find its home. We follow up to make sure it's perfect."
   }
 ];
 
@@ -39,38 +39,32 @@ const SMALL_GOODS = [
   {
     image: "images/small-1.jpg",
     title: "Wooden Cheese Board",
-    description: "Hand-shaped rimu cheese board with juice groove. A perfect housewarming gift.",
-    price: "$65 NZD"
+    description: "Hand-shaped rimu cheese board with juice groove. A perfect housewarming gift."
   },
   {
     image: "images/small-2.jpg",
     title: "Bud Vase Set",
-    description: "Set of three turned wooden bud vases — each one subtly different, beautifully unique.",
-    price: "$48 NZD"
+    description: "Set of three turned wooden bud vases — each one subtly different, beautifully unique."
   },
   {
     image: "images/small-3.jpg",
     title: "Oak Serving Spoon",
-    description: "Hand-carved solid oak serving spoon. Smooth, food-safe finish, built to last.",
-    price: "$34 NZD"
+    description: "Hand-carved solid oak serving spoon. Smooth, food-safe finish, built to last."
   },
   {
     image: "images/small-4.jpg",
     title: "Peg Hooks Rail",
-    description: "Slim wall-mounted rail with three solid brass pegs. Perfect for entryways.",
-    price: "$79 NZD"
+    description: "Slim wall-mounted rail with three solid brass pegs. Perfect for entryways."
   },
   {
     image: "images/small-5.jpg",
     title: "Trinket Tray",
-    description: "A little catch-all tray carved from a single piece of timber. Desk essential.",
-    price: "$42 NZD"
+    description: "A little catch-all tray carved from a single piece of timber. Desk essential."
   },
   {
     image: "images/small-6.jpg",
     title: "Gift Box Set",
-    description: "Seasonal gift sets — locally made, beautifully wrapped. Contact for current stock.",
-    price: "From $55 NZD"
+    description: "Seasonal gift sets — locally made, beautifully wrapped. Contact for current stock."
   }
 ];
 
@@ -82,38 +76,32 @@ const BIG_BUILDS = [
   {
     image: "images/big-1.jpg",
     title: "Dining Table — Blackwood",
-    description: "6-seat dining table in Australian blackwood. Waterfall edge, hairpin legs. 1800 × 900mm.",
-    price: "POA"
+    description: "6-seat dining table in Australian blackwood. Waterfall edge, hairpin legs. 1800 × 900mm."
   },
   {
     image: "images/big-2.jpg",
     title: "Floating Bedhead",
-    description: "King-size bedhead in white oak with integrated reading lights and bedside ledges.",
-    price: "POA"
+    description: "King-size bedhead in white oak with integrated reading lights and bedside ledges."
   },
   {
     image: "images/big-3.jpg",
     title: "Shelving Unit",
-    description: "Modular open shelving in solid pine. Four adjustable shelves, floor-to-ceiling options available.",
-    price: "From $950 NZD"
+    description: "Modular open shelving in solid pine. Four adjustable shelves, floor-to-ceiling options available."
   },
   {
     image: "images/big-4.jpg",
     title: "Coffee Table",
-    description: "Live-edge coffee table in native NZ timber. No two are alike — each piece celebrates the grain.",
-    price: "POA"
+    description: "Live-edge coffee table in native NZ timber. No two are alike — each piece celebrates the grain."
   },
   {
     image: "images/big-5.jpg",
     title: "Kitchen Bench Seats",
-    description: "Built-in bench seating for kitchen nooks or bay windows. Custom sizes available.",
-    price: "POA"
+    description: "Built-in bench seating for kitchen nooks or bay windows. Custom sizes available."
   },
   {
     image: "images/big-6.jpg",
     title: "Entryway Console",
-    description: "Slim, elegant console table with a single lower shelf. Perfect for hallways.",
-    price: "From $650 NZD"
+    description: "Slim, elegant console table with a single lower shelf. Perfect for hallways."
   }
 ];
 
@@ -123,15 +111,21 @@ const BIG_BUILDS = [
 // ─────────────────────────────────────────────────────────────
 const SERVICES = [
   {
+    icon: "🌿",
+    title: "Sustainable Sourcing",
+    description: "We work exclusively with sustainably sourced NZ and Aussie timber, and reclaimed materials where possible. Good for your home, good for the planet.",
+    cta: "Learn more"
+  },
+  {
     icon: "🪑",
     title: "Custom Furniture",
-    description: "From dining tables to bedframes, I design and build bespoke pieces tailored to your space, style, and budget. Every piece is one-of-a-kind.",
+    description: "From dining tables to bedframes, we design and build bespoke pieces tailored to your space, style, and budget. Every piece is one-of-a-kind.",
     cta: "Start a project"
   },
   {
     icon: "🏠",
     title: "Interior Fit-outs",
-    description: "Kitchen joinery, built-in shelving, bathroom vanities, TV units — I work with architects and homeowners to bring interiors to life.",
+    description: "Kitchen joinery, built-in shelving, bathroom vanities, TV units — we work with architects and homeowners to bring interiors to life.",
     cta: "Discuss your space"
   },
   {
@@ -149,14 +143,8 @@ const SERVICES = [
   {
     icon: "🔧",
     title: "Repairs & Restoration",
-    description: "Got a piece of furniture that needs love? I restore, refinish, and repair timber furniture to bring it back to its former glory.",
+    description: "Got a piece of furniture that needs love? We restore, refinish, and repair timber furniture to bring it back to its former glory.",
     cta: "Send a photo"
-  },
-  {
-    icon: "🌿",
-    title: "Sustainable Sourcing",
-    description: "I work exclusively with sustainably sourced NZ and Aussie timber, and reclaimed materials where possible. Good for your home, good for the planet.",
-    cta: "Learn more"
   }
 ];
 
@@ -422,6 +410,25 @@ function initContactForm() {
       });
 
       if (res.ok) {
+        // Save to order queue for admin
+        try {
+          const name    = form.querySelector('[name="name"]')?.value?.trim() || '';
+          const email   = form.querySelector('[name="email"]')?.value?.trim() || '';
+          const project = form.querySelector('[name="project"]')?.value || '';
+          const message = form.querySelector('[name="message"]')?.value?.trim() || '';
+          const order = {
+            id: 'ord_' + Date.now(),
+            name, nickname: '', email, phone: '',
+            product_interest: project, details: message,
+            stage: 'enquiry', notes: '',
+            created_at: new Date().toISOString().split('T')[0],
+            est_completion: '', source: 'contact_form'
+          };
+          const existing = JSON.parse(localStorage.getItem('vb_orders') || '[]');
+          existing.unshift(order);
+          localStorage.setItem('vb_orders', JSON.stringify(existing));
+        } catch {}
+
         form.reset();
         success.style.display = 'block';
         btn.textContent = 'Sent!';

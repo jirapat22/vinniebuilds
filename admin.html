@@ -54,6 +54,10 @@
         <button class="sidebar__nav-item active" data-panel="content">
           <span class="sidebar__nav-icon">📝</span> Site Content
         </button>
+        <button class="sidebar__nav-item" data-panel="orders">
+          <span class="sidebar__nav-icon">📋</span> Orders
+          <span class="sidebar__nav-badge" id="ordersNavBadge" style="display:none"></span>
+        </button>
         <button class="sidebar__nav-item" data-panel="projects">
           <span class="sidebar__nav-icon">🖼️</span> Projects
         </button>
@@ -119,6 +123,29 @@
         </div>
       </div>
 
+      <!-- ── PANEL: ORDERS ── -->
+      <div class="panel" id="panelOrders" data-panel="orders" style="display:none">
+        <div class="panel__header">
+          <div>
+            <h2 class="panel__title">Orders</h2>
+            <p class="panel__sub">Track enquiries, builds in progress, and completed projects.</p>
+          </div>
+          <button class="a-btn a-btn--primary" id="addOrderBtn">+ New Order</button>
+        </div>
+
+        <!-- Stage filter tabs -->
+        <div class="order-tabs" id="orderTabs">
+          <button class="order-tab active" data-stage="all">All</button>
+          <button class="order-tab" data-stage="enquiry">Enquiry</button>
+          <button class="order-tab" data-stage="design">Design</button>
+          <button class="order-tab" data-stage="build">Build</button>
+          <button class="order-tab" data-stage="finish">Finish</button>
+          <button class="order-tab" data-stage="delivered">Delivered</button>
+        </div>
+
+        <div class="order-list" id="orderList"></div>
+      </div>
+
       <!-- ── PANEL: PROJECTS ── -->
       <div class="panel" id="panelProjects" data-panel="projects" style="display:none">
         <div class="panel__header">
@@ -166,6 +193,37 @@
             </div>
             <button type="submit" class="a-btn a-btn--primary">Update Password</button>
             <p class="settings-msg" id="passwordMsg"></p>
+          </form>
+        </div>
+
+        <div class="content-section">
+          <div class="content-section__head"><h3>Brand Assets</h3></div>
+          <p class="panel__sub" style="margin-bottom:16px">Once Vinnie's designer sends through the brand guide, paste the values here. These are for reference — update the actual CSS variables in <code>style.css</code> to apply changes.</p>
+          <div class="brand-grid">
+            <div class="brand-swatch-group">
+              <p class="brand-label">Primary Colours</p>
+              <div class="brand-swatches" id="brandSwatches"></div>
+            </div>
+            <div class="brand-font-group">
+              <p class="brand-label">Fonts</p>
+              <div id="brandFonts" class="brand-fonts"></div>
+            </div>
+          </div>
+          <form class="settings-form" id="brandSettingsForm" style="margin-top:16px">
+            <div class="a-form-group"><label>Primary Colour (hex)</label>
+              <input type="text" id="brandColor1" placeholder="#3B52C4" maxlength="7" /></div>
+            <div class="a-form-group"><label>Secondary Colour (hex)</label>
+              <input type="text" id="brandColor2" placeholder="#C83228" maxlength="7" /></div>
+            <div class="a-form-group"><label>Accent / Warm Tone (hex)</label>
+              <input type="text" id="brandColor3" placeholder="#C8A97E" maxlength="7" /></div>
+            <div class="a-form-group"><label>Heading Font</label>
+              <input type="text" id="brandFontHead" placeholder="e.g. Pacifico, Inter, Playfair Display" /></div>
+            <div class="a-form-group"><label>Body Font</label>
+              <input type="text" id="brandFontBody" placeholder="e.g. Inter" /></div>
+            <div class="a-form-group"><label>Notes from designer</label>
+              <textarea id="brandNotes" rows="3" placeholder="Any notes from the brand guide…"></textarea></div>
+            <button type="submit" class="a-btn a-btn--primary">Save Brand Settings</button>
+            <p class="settings-msg" id="brandMsg"></p>
           </form>
         </div>
 

@@ -18,6 +18,16 @@ let adminData = {
 
 let adminProjects   = [];
 let adminCategories = [];
+let adminOrders     = JSON.parse(localStorage.getItem('vb_orders') || '[]');
+let activeOrderStageFilter = 'all';
+
+const ORDER_STAGES = [
+  { key: 'enquiry',   label: 'Enquiry',   color: '#8B9CF4' },
+  { key: 'design',    label: 'Design',    color: '#F4A84E' },
+  { key: 'build',     label: 'Build',     color: '#4EA8DE' },
+  { key: 'finish',    label: 'Finish',    color: '#A78BFA' },
+  { key: 'delivered', label: 'Delivered', color: '#4EDE8A' },
+];
 
 /* ════════════════════════════════════════════════
    INIT
@@ -46,8 +56,28 @@ document.addEventListener('DOMContentLoaded', () => {
   // Add project button
   document.getElementById('addProjectBtn').addEventListener('click', () => openProjectModal(null));
 
+  // Add order button
+  document.getElementById('addOrderBtn').addEventListener('click', () => openOrderModal(null));
+
+  // Order stage tabs
+  document.getElementById('orderTabs').addEventListener('click', e => {
+    const tab = e.target.closest('.order-tab');
+    if (!tab) return;
+    document.querySelectorAll('.order-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    activeOrderStageFilter = tab.dataset.stage;
+    renderOrdersPanel();
+  });
+
+  // Render orders badge
+  updateOrdersBadge();
+
   // Password change form
   document.getElementById('changePasswordForm').addEventListener('submit', handlePasswordChange);
+
+  // Brand settings
+  initBrandSettings();
+  document.getElementById('brandSettingsForm').addEventListener('submit', saveBrandSettings);
 });
 
 /* ════════════════════════════════════════════════
@@ -164,6 +194,7 @@ function switchPanel(name) {
   document.querySelectorAll('.panel').forEach(p => {
     p.style.display = p.dataset.panel === name ? 'block' : 'none';
   });
+  if (name === 'orders') renderOrdersPanel();
 }
 
 /* ════════════════════════════════════════════════
@@ -301,7 +332,7 @@ function renderProductList(containerId, items, key) {
       </div>
       <div class="item-row__info">
         <p class="item-row__title">${escapeHTML(item.title)}</p>
-        <p class="item-row__meta">${item.price ? escapeHTML(item.price) : 'No price set'}</p>
+        <p class="item-row__meta">${escapeHTML((item.description || '').substring(0, 60))}…</p>
       </div>
       <div class="item-row__actions">
         <button class="a-btn a-btn--sm a-btn--outline" onclick="editProduct('${key}', ${i})">Edit</button>
@@ -313,28 +344,34 @@ function renderProductList(containerId, items, key) {
 
 function editProduct(key, i) {
   const item = i === -1
-    ? { image: '', title: '', description: '', price: '' }
+    ? { image: '', title: '', description: '' }
     : { ...adminData[key][i] };
+
+  const sectionLabel = key === 'small_goods' ? 'Small Goods section' : 'Big Builds section';
 
   openModal(i === -1 ? 'Add Product' : 'Edit Product', `
     <div class="a-form-group"><label>Title</label>
       <input type="text" id="mPTitle" value="${escapeHTML(item.title)}" placeholder="e.g. Cheese Board" /></div>
     <div class="a-form-group"><label>Description</label>
       <textarea id="mPDesc" rows="3">${escapeHTML(item.description)}</textarea></div>
-    <div class="a-form-group"><label>Price (optional)</label>
-      <input type="text" id="mPPrice" value="${escapeHTML(item.price || '')}" placeholder="$65 NZD" /></div>
-    <div class="a-form-group"><label>Image URL or Path</label>
-      <input type="text" id="mPImage" value="${escapeHTML(item.image || '')}" placeholder="images/small-1.jpg" />
-      ${CONFIG.CLOUDINARY_READY ? `
-        <button type="button" class="a-btn a-btn--sm a-btn--outline" style="margin-top:6px" onclick="uploadImageToField('mPImage')">
-          Upload image ↑
-        </button>` : '<p style="font-size:.75rem;color:var(--text-light);margin-top:4px">Configure Cloudinary in config.js to enable uploads.</p>'}
+
+    <div class="a-form-group">
+      <label>Photo <small class="label-hint">— shown in the ${sectionLabel} on the homepage</small></label>
+      <div class="photo-preview" id="mPPhotoPreview">
+        ${item.image
+          ? `<img src="${escapeHTML(item.image)}" onerror="this.parentElement.innerHTML='<span class=\\'photo-preview__empty\\'>Image not found</span>'">`
+          : '<span class="photo-preview__empty">No photo yet</span>'}
+      </div>
+      <input type="text" id="mPImage" value="${escapeHTML(item.image || '')}" placeholder="Paste image URL here"
+        oninput="previewPhoto('mPImage','mPPhotoPreview')" />
+      ${CONFIG.CLOUDINARY_READY
+        ? `<button type="button" class="a-btn a-btn--outline upload-btn" onclick="uploadImageToField('mPImage','mPPhotoPreview')">⬆ Upload Photo</button>`
+        : '<p class="label-hint" style="margin-top:6px">To upload photos directly, configure Cloudinary in config.js</p>'}
     </div>
   `, async () => {
     const updated = {
       title:       document.getElementById('mPTitle').value.trim(),
       description: document.getElementById('mPDesc').value.trim(),
-      price:       document.getElementById('mPPrice').value.trim() || undefined,
       image:       document.getElementById('mPImage').value.trim(),
     };
     if (!updated.title) return showToast('Title is required', 'err');
@@ -503,14 +540,26 @@ function openProjectModal(projectId) {
     <div class="a-form-group"><label>Materials (comma-separated)</label>
       <input type="text" id="mProjMaterials" value="${escapeHTML(materialsVal)}" placeholder="NZ Rimu, Brass Hardware, Osmo Oil" /></div>
 
-    <div class="a-form-group"><label>Cover Photo URL</label>
-      <input type="text" id="mProjCover" value="${escapeHTML(p.cover_photo || '')}" placeholder="images/projects/bt-1.jpg" />
-      ${CONFIG.CLOUDINARY_READY ? `<button type="button" class="a-btn a-btn--sm a-btn--outline" style="margin-top:6px" onclick="uploadImageToField('mProjCover')">Upload ↑</button>` : ''}
+    <div class="a-form-group">
+      <label>Cover Photo <small class="label-hint">— thumbnail shown on the Projects grid page</small></label>
+      <div class="photo-preview" id="mCoverPreview">
+        ${p.cover_photo
+          ? `<img src="${escapeHTML(p.cover_photo)}" onerror="this.parentElement.innerHTML='<span class=\\'photo-preview__empty\\'>Image not found</span>'">`
+          : '<span class="photo-preview__empty">No cover photo yet</span>'}
+      </div>
+      <input type="text" id="mProjCover" value="${escapeHTML(p.cover_photo || '')}" placeholder="Paste URL or click Upload"
+        oninput="previewPhoto('mProjCover','mCoverPreview')" />
+      ${CONFIG.CLOUDINARY_READY ? `<button type="button" class="a-btn a-btn--outline upload-btn" onclick="uploadImageToField('mProjCover','mCoverPreview')">⬆ Upload Cover Photo</button>` : ''}
     </div>
 
-    <div class="a-form-group"><label>All Photo URLs (one per line)</label>
-      <textarea id="mProjPhotos" rows="4" placeholder="images/projects/bt-1.jpg&#10;images/projects/bt-2.jpg">${escapeHTML(photosVal)}</textarea>
-      ${CONFIG.CLOUDINARY_READY ? `<button type="button" class="a-btn a-btn--sm a-btn--outline" style="margin-top:6px" onclick="uploadMultipleImages('mProjPhotos')">Upload images ↑</button>` : ''}
+    <div class="a-form-group">
+      <label>Gallery Photos <small class="label-hint">— shown in the project detail slideshow</small></label>
+      <div class="gallery-thumbs" id="mGalleryThumbs"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+        ${CONFIG.CLOUDINARY_READY ? `<button type="button" class="a-btn a-btn--outline upload-btn" onclick="uploadMultipleImages('mProjPhotos')">⬆ Upload Photos</button>` : ''}
+        <button type="button" class="a-btn a-btn--ghost" onclick="addGalleryPhotoByUrl()">+ Add by URL</button>
+      </div>
+      <textarea id="mProjPhotos" style="display:none">${escapeHTML(photosVal)}</textarea>
     </div>
 
     <div class="toggle-wrap">
@@ -569,6 +618,48 @@ function openProjectModal(projectId) {
         e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
     }
   });
+
+  // Render gallery thumbnails on open
+  renderGalleryThumbs();
+
+  // Re-render gallery when hidden textarea changes (after upload)
+  document.getElementById('mProjPhotos').addEventListener('change', renderGalleryThumbs);
+}
+
+function renderGalleryThumbs() {
+  const ta = document.getElementById('mProjPhotos');
+  const grid = document.getElementById('mGalleryThumbs');
+  if (!ta || !grid) return;
+  const urls = ta.value.split('\n').map(s => s.trim()).filter(Boolean);
+  if (!urls.length) {
+    grid.innerHTML = '<p class="label-hint">No photos yet — upload some above</p>';
+    return;
+  }
+  grid.innerHTML = urls.map((url, i) => `
+    <div class="gallery-thumb">
+      <img src="${escapeHTML(url)}" onerror="this.src=''" alt="Photo ${i+1}">
+      <button type="button" class="gallery-thumb__remove" onclick="removeGalleryPhoto(${i})" title="Remove">✕</button>
+    </div>
+  `).join('');
+}
+
+function removeGalleryPhoto(index) {
+  const ta = document.getElementById('mProjPhotos');
+  if (!ta) return;
+  const urls = ta.value.split('\n').map(s => s.trim()).filter(Boolean);
+  urls.splice(index, 1);
+  ta.value = urls.join('\n');
+  renderGalleryThumbs();
+}
+
+function addGalleryPhotoByUrl() {
+  const url = prompt('Paste the image URL:');
+  if (!url || !url.trim()) return;
+  const ta = document.getElementById('mProjPhotos');
+  if (!ta) return;
+  const existing = ta.value.trim();
+  ta.value = existing ? `${existing}\n${url.trim()}` : url.trim();
+  renderGalleryThumbs();
 }
 
 async function deleteProject(id) {
@@ -744,7 +835,18 @@ async function checkApiStatus() {
 /* ════════════════════════════════════════════════
    IMAGE UPLOAD (Cloudinary)
 ════════════════════════════════════════════════ */
-async function uploadImageToField(inputId) {
+function previewPhoto(inputId, previewId) {
+  const url = document.getElementById(inputId)?.value?.trim();
+  const preview = document.getElementById(previewId);
+  if (!preview) return;
+  if (url) {
+    preview.innerHTML = `<img src="${escapeHTML(url)}" onerror="this.parentElement.innerHTML='<span class=\\'photo-preview__empty\\'>Image not found</span>'">`;
+  } else {
+    preview.innerHTML = '<span class="photo-preview__empty">No photo yet</span>';
+  }
+}
+
+async function uploadImageToField(inputId, previewId) {
   if (!CONFIG.CLOUDINARY_READY) { showToast('Cloudinary not configured', 'err'); return; }
 
   const input = document.createElement('input');
@@ -760,7 +862,8 @@ async function uploadImageToField(inputId) {
     const url = await uploadToCloudinary(file);
     if (url) {
       document.getElementById(inputId).value = url;
-      showToast('Image uploaded ✓', 'ok');
+      if (previewId) previewPhoto(inputId, previewId);
+      showToast('Photo uploaded ✓', 'ok');
     }
   };
 }
@@ -777,7 +880,7 @@ async function uploadMultipleImages(textareaId) {
   input.onchange = async () => {
     const files = Array.from(input.files);
     if (!files.length) return;
-    showToast(`Uploading ${files.length} image(s)…`);
+    showToast(`Uploading ${files.length} photo(s)…`);
 
     const urls = await Promise.all(files.map(uploadToCloudinary));
     const valid = urls.filter(Boolean);
@@ -785,7 +888,8 @@ async function uploadMultipleImages(textareaId) {
       const ta = document.getElementById(textareaId);
       const existing = ta.value.trim();
       ta.value = existing ? `${existing}\n${valid.join('\n')}` : valid.join('\n');
-      showToast(`${valid.length} image(s) uploaded ✓`, 'ok');
+      renderGalleryThumbs();
+      showToast(`${valid.length} photo(s) uploaded ✓`, 'ok');
     }
   };
 }
@@ -859,8 +963,218 @@ function showToast(msg, type = '') {
   toastTimer = setTimeout(() => { el.classList.remove('show'); }, 2800);
 }
 
+/* ════════════════════════════════════════════════
+   BRAND SETTINGS
+════════════════════════════════════════════════ */
+function initBrandSettings() {
+  const saved = JSON.parse(localStorage.getItem('vb_brand') || '{}');
+  if (saved.color1) document.getElementById('brandColor1').value = saved.color1;
+  if (saved.color2) document.getElementById('brandColor2').value = saved.color2;
+  if (saved.color3) document.getElementById('brandColor3').value = saved.color3;
+  if (saved.fontHead) document.getElementById('brandFontHead').value = saved.fontHead;
+  if (saved.fontBody) document.getElementById('brandFontBody').value = saved.fontBody;
+  if (saved.notes)  document.getElementById('brandNotes').value = saved.notes;
+  renderBrandPreview(saved);
+}
+
+function saveBrandSettings(e) {
+  e.preventDefault();
+  const brand = {
+    color1:   document.getElementById('brandColor1').value.trim(),
+    color2:   document.getElementById('brandColor2').value.trim(),
+    color3:   document.getElementById('brandColor3').value.trim(),
+    fontHead: document.getElementById('brandFontHead').value.trim(),
+    fontBody: document.getElementById('brandFontBody').value.trim(),
+    notes:    document.getElementById('brandNotes').value.trim(),
+  };
+  localStorage.setItem('vb_brand', JSON.stringify(brand));
+  renderBrandPreview(brand);
+  document.getElementById('brandMsg').textContent = 'Saved ✓';
+  setTimeout(() => { document.getElementById('brandMsg').textContent = ''; }, 2000);
+}
+
+function renderBrandPreview(brand) {
+  const swatches = document.getElementById('brandSwatches');
+  const fonts    = document.getElementById('brandFonts');
+  if (!swatches || !fonts) return;
+
+  const colors = [brand.color1, brand.color2, brand.color3].filter(Boolean);
+  swatches.innerHTML = colors.length
+    ? colors.map(c => `<div class="brand-swatch" style="background:${escapeHTML(c)}" title="${escapeHTML(c)}"></div>`).join('')
+    : '<p class="label-hint">No colours saved yet</p>';
+
+  const fontList = [
+    brand.fontHead ? `<div><strong>Heading:</strong> <span style="font-family:${escapeHTML(brand.fontHead)}">${escapeHTML(brand.fontHead)}</span></div>` : '',
+    brand.fontBody ? `<div><strong>Body:</strong> <span style="font-family:${escapeHTML(brand.fontBody)}">${escapeHTML(brand.fontBody)}</span></div>` : '',
+  ].filter(Boolean).join('');
+  fonts.innerHTML = fontList || '<p class="label-hint">No fonts saved yet</p>';
+}
+
 /* ── Static default helpers (mirrors main.js defaults) ── */
 function DEFAULT_PROCESS_STEPS() { return typeof PROCESS_STEPS !== 'undefined' ? [...PROCESS_STEPS] : []; }
 function DEFAULT_SMALL_GOODS()   { return typeof SMALL_GOODS   !== 'undefined' ? [...SMALL_GOODS]   : []; }
 function DEFAULT_BIG_BUILDS()    { return typeof BIG_BUILDS    !== 'undefined' ? [...BIG_BUILDS]    : []; }
 function DEFAULT_SERVICES()      { return typeof SERVICES      !== 'undefined' ? [...SERVICES]      : []; }
+
+/* ════════════════════════════════════════════════
+   ORDERS
+════════════════════════════════════════════════ */
+function saveOrders() {
+  localStorage.setItem('vb_orders', JSON.stringify(adminOrders));
+  updateOrdersBadge();
+}
+
+function updateOrdersBadge() {
+  const badge = document.getElementById('ordersNavBadge');
+  if (!badge) return;
+  const active = adminOrders.filter(o => o.stage !== 'delivered').length;
+  if (active > 0) {
+    badge.textContent = active;
+    badge.style.display = 'inline-block';
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+function renderOrdersPanel() {
+  const list = document.getElementById('orderList');
+  if (!list) return;
+
+  const filtered = activeOrderStageFilter === 'all'
+    ? [...adminOrders]
+    : adminOrders.filter(o => o.stage === activeOrderStageFilter);
+
+  // Sort: newest first, delivered at bottom
+  filtered.sort((a, b) => {
+    if (a.stage === 'delivered' && b.stage !== 'delivered') return 1;
+    if (b.stage === 'delivered' && a.stage !== 'delivered') return -1;
+    return new Date(b.created_at) - new Date(a.created_at);
+  });
+
+  if (!filtered.length) {
+    list.innerHTML = `<p style="color:var(--text-light);padding:24px 0;font-size:.9rem">
+      ${activeOrderStageFilter === 'all' ? 'No orders yet. Click "+ New Order" or submit the contact form.' : 'No orders at this stage.'}
+    </p>`;
+    return;
+  }
+
+  list.innerHTML = filtered.map(order => {
+    const stage = ORDER_STAGES.find(s => s.key === order.stage) || ORDER_STAGES[0];
+    const created = order.created_at ? new Date(order.created_at).toLocaleDateString('en-NZ', { day:'numeric', month:'short', year:'numeric' }) : '—';
+    const estComp = order.est_completion ? new Date(order.est_completion).toLocaleDateString('en-NZ', { day:'numeric', month:'short', year:'numeric' }) : null;
+    return `
+      <div class="order-row" data-id="${escapeHTML(order.id)}">
+        <div class="order-row__stage">
+          <span class="stage-badge" style="background:${stage.color}20;color:${stage.color};border-color:${stage.color}40">${stage.label}</span>
+        </div>
+        <div class="order-row__info">
+          <p class="order-row__name">${escapeHTML(order.name || '—')}${order.nickname ? ` <span class="order-row__nick">(${escapeHTML(order.nickname)})</span>` : ''}</p>
+          <p class="order-row__product">${escapeHTML((order.product_interest || '').substring(0, 80) || 'No details yet')}</p>
+          <p class="order-row__meta">
+            Received ${created}
+            ${estComp ? ` · Est. completion: <strong>${estComp}</strong>` : ''}
+            ${order.source === 'contact_form' ? ' · <span class="order-row__source">via form</span>' : ''}
+          </p>
+        </div>
+        ${order.notes ? `<div class="order-row__notes-flag" title="${escapeHTML(order.notes)}">📝</div>` : ''}
+        <div class="order-row__actions">
+          <button class="a-btn a-btn--sm a-btn--outline" onclick="openOrderModal('${escapeHTML(order.id)}')">Edit</button>
+          <button class="a-btn a-btn--sm a-btn--danger" onclick="deleteOrder('${escapeHTML(order.id)}')">Delete</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function openOrderModal(orderId) {
+  const isNew = orderId === null;
+  const order = isNew ? {
+    id: 'ord_' + Date.now(),
+    name: '', nickname: '', email: '', phone: '',
+    product_interest: '', details: '', stage: 'enquiry',
+    notes: '', created_at: new Date().toISOString().split('T')[0],
+    est_completion: '', source: 'manual'
+  } : adminOrders.find(o => o.id === orderId);
+
+  if (!order) { showToast('Order not found', 'err'); return; }
+
+  const stageOptions = ORDER_STAGES.map(s =>
+    `<option value="${s.key}" ${order.stage === s.key ? 'selected' : ''}>${s.label}</option>`
+  ).join('');
+
+  openModal(isNew ? 'New Order' : `Edit Order — ${order.name || 'Unknown'}`, `
+    <div class="form-grid-2">
+      <div class="a-form-group"><label>Full Name</label>
+        <input type="text" id="mOName" value="${escapeHTML(order.name)}" placeholder="Jane Smith" /></div>
+      <div class="a-form-group"><label>Nickname <small class="label-hint">Vinnie's shortname</small></label>
+        <input type="text" id="mONick" value="${escapeHTML(order.nickname)}" placeholder="Jane" /></div>
+    </div>
+    <div class="form-grid-2">
+      <div class="a-form-group"><label>Email</label>
+        <input type="email" id="mOEmail" value="${escapeHTML(order.email)}" placeholder="jane@email.com" /></div>
+      <div class="a-form-group"><label>Phone</label>
+        <input type="text" id="mOPhone" value="${escapeHTML(order.phone)}" placeholder="+64 21 000 000" /></div>
+    </div>
+    <div class="a-form-group"><label>What they want</label>
+      <input type="text" id="mOProduct" value="${escapeHTML(order.product_interest)}" placeholder="e.g. Custom dining table, blackwood, 6-seat" /></div>
+    <div class="a-form-group"><label>Details</label>
+      <textarea id="mODetails" rows="3" placeholder="Dimensions, timber preferences, special requests…">${escapeHTML(order.details)}</textarea></div>
+    <div class="form-grid-2">
+      <div class="a-form-group"><label>Stage</label>
+        <select id="mOStage">${stageOptions}</select></div>
+      <div class="a-form-group"><label>Est. Completion Date</label>
+        <input type="date" id="mOEst" value="${escapeHTML(order.est_completion)}" /></div>
+    </div>
+    <div class="a-form-group"><label>Notes <small class="label-hint">Private — only visible in admin</small></label>
+      <textarea id="mONotes" rows="4" placeholder="Any extra context, conversations, preferences…">${escapeHTML(order.notes)}</textarea></div>
+    <div class="a-form-group"><label>Date Received</label>
+      <input type="date" id="mODate" value="${escapeHTML(order.created_at)}" /></div>
+  `, () => {
+    const updated = {
+      ...order,
+      name:             document.getElementById('mOName').value.trim(),
+      nickname:         document.getElementById('mONick').value.trim(),
+      email:            document.getElementById('mOEmail').value.trim(),
+      phone:            document.getElementById('mOPhone').value.trim(),
+      product_interest: document.getElementById('mOProduct').value.trim(),
+      details:          document.getElementById('mODetails').value.trim(),
+      stage:            document.getElementById('mOStage').value,
+      est_completion:   document.getElementById('mOEst').value,
+      notes:            document.getElementById('mONotes').value.trim(),
+      created_at:       document.getElementById('mODate').value,
+    };
+    if (isNew) adminOrders.unshift(updated);
+    else {
+      const idx = adminOrders.findIndex(o => o.id === orderId);
+      if (idx > -1) adminOrders[idx] = updated;
+    }
+    saveOrders();
+    renderOrdersPanel();
+    closeModal();
+    showToast(isNew ? 'Order added ✓' : 'Order updated ✓', 'ok');
+  });
+}
+
+function deleteOrder(id) {
+  if (!confirm('Delete this order? This cannot be undone.')) return;
+  adminOrders = adminOrders.filter(o => o.id !== id);
+  saveOrders();
+  renderOrdersPanel();
+  showToast('Order deleted', 'ok');
+}
+
+// Called from main.js via localStorage when contact form is submitted
+function createOrderFromContact(name, email, productInterest, message) {
+  const order = {
+    id: 'ord_' + Date.now(),
+    name, nickname: '', email, phone: '',
+    product_interest: productInterest || '',
+    details: message || '',
+    stage: 'enquiry',
+    notes: '', created_at: new Date().toISOString().split('T')[0],
+    est_completion: '', source: 'contact_form'
+  };
+  const orders = JSON.parse(localStorage.getItem('vb_orders') || '[]');
+  orders.unshift(order);
+  localStorage.setItem('vb_orders', JSON.stringify(orders));
+}
