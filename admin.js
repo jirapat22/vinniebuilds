@@ -183,6 +183,7 @@ async function showDashboard() {
   renderContentPanel();
   renderProjectsPanel();
   renderCategoriesPanel();
+  updateOrdersBadge();
   checkApiStatus();
 }
 
