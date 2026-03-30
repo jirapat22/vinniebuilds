@@ -333,7 +333,7 @@ function renderProductList(containerId, items, key) {
       </div>
       <div class="item-row__info">
         <p class="item-row__title">${escapeHTML(item.title)}</p>
-        <p class="item-row__meta">${escapeHTML((item.description || '').substring(0, 60))}…</p>
+        <p class="item-row__meta">${escapeHTML((item.description || 'No description').substring(0, 60))}${(item.description || '').length > 60 ? '…' : ''}</p>
       </div>
       <div class="item-row__actions">
         <button class="a-btn a-btn--sm a-btn--outline" onclick="editProduct('${key}', ${i})">Edit</button>
