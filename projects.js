@@ -14,7 +14,7 @@ const DEFAULT_PROJECTS = [
     slug: 'blackwood-dining-table',
     title: 'Blackwood Dining Table',
     category_id: 'furniture',
-    description: 'A six-seat dining table crafted from Australian blackwood. The waterfall edge showcases the grain\'s natural figuring. Finished with a hand-rubbed oil that brings out the warm chocolate tones of the timber.\n\nDesigned for a family in Ponsonby who wanted something that would become a heirloom piece. The hairpin legs are custom-made by a local metalworker.',
+    description: 'A six-seat dining table crafted from Australian blackwood. The waterfall edge showcases the grain\'s natural figuring. Finished with a hand-rubbed oil that brings out the warm chocolate tones of the timber.\n\nDesigned for a family in Ponsonby who wanted something that would become an heirloom piece. The hairpin legs are custom-made by a local metalworker.',
     materials: ['Australian Blackwood', 'Mild Steel Hairpin Legs', 'Osmo Hardwax Oil'],
     photos: ['images/projects/bt-1.jpg', 'images/projects/bt-2.jpg', 'images/projects/bt-3.jpg'],
     cover_photo: 'images/projects/bt-1.jpg',
