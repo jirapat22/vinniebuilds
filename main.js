@@ -264,7 +264,6 @@ function renderProductGrid(containerId, items) {
       <div class="product-card__body">
         <h4 class="product-card__title">${escapeHTML(item.title)}</h4>
         <p class="product-card__desc">${escapeHTML(item.description)}</p>
-        ${item.price ? `<span class="product-card__price">${escapeHTML(item.price)}</span>` : ''}
       </div>
     </div>
   `).join('');

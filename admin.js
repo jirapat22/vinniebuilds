@@ -195,7 +195,10 @@ function switchPanel(name) {
   document.querySelectorAll('.panel').forEach(p => {
     p.style.display = p.dataset.panel === name ? 'block' : 'none';
   });
-  if (name === 'orders') renderOrdersPanel();
+  if (name === 'orders') {
+    adminOrders = JSON.parse(localStorage.getItem('vb_orders') || '[]');
+    renderOrdersPanel();
+  }
 }
 
 /* ════════════════════════════════════════════════
