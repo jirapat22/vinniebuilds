@@ -1048,10 +1048,6 @@ ul {
   .sidenav .sidenav__link.active::before { background: var(--blue) !important; }
   .sidenav .sidenav__cta { display: block; }
 
-  .sidenav__overlay {
-    display: block; /* visibility controlled by JS inline style */
-  }
-
   .sidenav__burger {
     display: flex;
   }
