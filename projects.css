@@ -44,8 +44,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 70% 50%, rgba(59, 82, 196, 0.18) 0%, transparent 65%),
-    radial-gradient(ellipse at 20% 80%, rgba(200, 50, 40, 0.12) 0%, transparent 50%);
+    radial-gradient(ellipse at 70% 50%, rgba(66, 69, 158, 0.18) 0%, transparent 65%),
+    radial-gradient(ellipse at 20% 80%, rgba(212, 64, 56, 0.12) 0%, transparent 50%);
   pointer-events: none;
 }
 
@@ -224,12 +224,12 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--blue);
-  background: rgba(59, 82, 196, 0.18);
+  background: rgba(66, 69, 158, 0.18);
   padding: 3px 10px;
   border-radius: 100px;
   margin-bottom: 10px;
   /* Subtle border */
-  border: 1px solid rgba(59, 82, 196, 0.3);
+  border: 1px solid rgba(66, 69, 158, 0.3);
 }
 
 .pj-card__title {
@@ -336,8 +336,8 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--blue);
-  background: rgba(59, 82, 196, 0.2);
-  border: 1px solid rgba(59, 82, 196, 0.35);
+  background: rgba(66, 69, 158, 0.2);
+  border: 1px solid rgba(66, 69, 158, 0.35);
   padding: 4px 12px;
   border-radius: 100px;
   margin-bottom: 14px;

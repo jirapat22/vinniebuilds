@@ -11,10 +11,10 @@
   --text:       #3A3530;
   --text-light: #7A736B;
   --border:     rgba(44, 44, 44, 0.1);
-  --blue:       #3B52C4;
-  --blue-dark:  #2A3EA8;
-  --blue-light: rgba(59, 82, 196, 0.1);
-  --red:        #C83228;
+  --blue:       #42459E;
+  --blue-dark:  #32357E;
+  --blue-light: rgba(66, 69, 158, 0.1);
+  --red:        #D44038;
   --green:      #4a7c59;
 
   --sidebar-w:   240px;
@@ -135,10 +135,10 @@ html, body { height: 100%; }
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--blue);
-  background: rgba(59, 82, 196, 0.18);
+  background: rgba(66, 69, 158, 0.18);
   padding: 2px 8px;
   border-radius: 100px;
-  border: 1px solid rgba(59, 82, 196, 0.3);
+  border: 1px solid rgba(66, 69, 158, 0.3);
 }
 
 .sidebar__nav {
@@ -173,7 +173,7 @@ html, body { height: 100%; }
 }
 
 .sidebar__nav-item.active {
-  background: rgba(59, 82, 196, 0.2);
+  background: rgba(66, 69, 158, 0.2);
   color: var(--white);
 }
 
@@ -493,7 +493,7 @@ html, body { height: 100%; }
 .a-btn--danger {
   background: transparent;
   color: var(--red);
-  border-color: rgba(200, 50, 40, 0.25);
+  border-color: rgba(212, 64, 56, 0.25);
 }
 
 .a-btn--danger:hover {
@@ -582,7 +582,7 @@ html, body { height: 100%; }
   gap: 5px;
   background: var(--blue-light);
   color: var(--blue-dark);
-  border: 1px solid rgba(59,82,196,0.2);
+  border: 1px solid rgba(66,69,158,0.2);
   padding: 3px 10px;
   border-radius: 100px;
   font-size: 0.8rem;
@@ -788,7 +788,7 @@ html, body { height: 100%; }
 }
 
 .api-status--ok  { border-color: var(--green); color: var(--green); background: rgba(74,124,89,0.06); }
-.api-status--err { border-color: var(--red);   color: var(--red);   background: rgba(200,50,40,0.06); }
+.api-status--err { border-color: var(--red);   color: var(--red);   background: rgba(212,64,56,0.06); }
 
 /* ── TOAST NOTIFICATIONS ── */
 .toast {
