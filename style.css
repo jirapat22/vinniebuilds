@@ -110,12 +110,12 @@ ul {
 }
 
 .section-title {
-  font-family: 'Genty', 'Inter', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.2;
   color: var(--charcoal);
-  letter-spacing: 0;
+  letter-spacing: -0.02em;
 }
 
 /* ── Buttons ── */
@@ -202,7 +202,7 @@ ul {
   margin-bottom: 48px;
   display: block;
   line-height: 1.3;
-  text-shadow: 0 1px 8px rgba(0,0,0,0.5), 0 0 20px rgba(0,0,0,0.2);
+  text-shadow: none;
 }
 
 .sidenav__nav {
@@ -237,14 +237,14 @@ ul {
   font-weight: 700;
 }
 
-/* Over dark hero — switch to white */
+/* Hero is light — keep links blue over it */
 .sidenav.over-dark .sidenav__link {
-  color: rgba(255,255,255,0.82);
-  text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+  color: var(--blue);
+  text-shadow: none;
 }
-.sidenav.over-dark .sidenav__link:hover { color: var(--white); }
-.sidenav.over-dark .sidenav__link.active { color: var(--white); }
-.sidenav.over-dark .sidenav__link.active::before { background: var(--white); }
+.sidenav.over-dark .sidenav__link:hover { color: var(--blue-dark); }
+.sidenav.over-dark .sidenav__link.active { color: var(--blue-dark); }
+.sidenav.over-dark .sidenav__link.active::before { background: var(--blue); }
 
 .sidenav__link.active::before {
   content: '';
@@ -382,21 +382,15 @@ ul {
 .hero__parallax {
   position: absolute;
   inset: -15%;
-  background-image: url('images/hero.jpg');
-  background-size: cover;
-  background-position: center;
-  /* Fallback gradient when image is missing */
-  background-color: #3a2e24;
+  background-image: none;
+  background-color: var(--cream);
   will-change: transform;
 }
 
 .hero__overlay {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse at 18% 70%, rgba(180, 110, 38, 0.32) 0%, transparent 52%),
-    radial-gradient(ellipse at 82% 20%, rgba(90, 52, 18, 0.40) 0%, transparent 48%),
-    linear-gradient(160deg, rgba(16, 10, 4, 0.72) 0%, rgba(44, 30, 14, 0.44) 58%, rgba(200, 169, 126, 0.10) 100%);
+  background: none;
 }
 
 /* Grain texture over hero */
@@ -416,12 +410,12 @@ ul {
   text-align: center;
   padding: 52px 64px;
   max-width: 840px;
-  background: rgba(8, 4, 1, 0.48);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  background: var(--oak);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(66, 69, 158, 0.55);
-  box-shadow: 0 0 40px rgba(66, 69, 158, 0.12), 0 8px 40px rgba(0,0,0,0.35);
+  border: 3px solid var(--blue);
+  box-shadow: 0 0 0 6px rgba(66, 69, 158, 0.12), 0 8px 40px rgba(66, 69, 158, 0.18);
 }
 
 .hero__eyebrow {
@@ -429,7 +423,7 @@ ul {
   font-weight: 600;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--oak);
+  color: var(--blue);
   margin-bottom: 20px;
   opacity: 0; /* GSAP animates in */
 }
@@ -448,7 +442,7 @@ ul {
 .hero__tagline {
   font-size: clamp(1.1rem, 2.5vw, 1.4rem);
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--text);
   line-height: 1.5;
   margin-bottom: 44px;
   opacity: 0; /* GSAP animates in */
@@ -460,6 +454,13 @@ ul {
   justify-content: center;
   flex-wrap: wrap;
   opacity: 0; /* GSAP animates in */
+}
+
+.hero__logo-img {
+  width: 72px;
+  height: auto;
+  display: block;
+  margin: 0 auto 20px;
 }
 
 .hero__scroll {
@@ -1039,7 +1040,8 @@ ul {
 
   .sidenav {
     width: min(260px, 80vw);
-    background: var(--charcoal);
+    background: var(--cream);
+    box-shadow: 4px 0 24px rgba(66, 69, 158, 0.12);
     transform: translateX(-100%);
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -1048,13 +1050,13 @@ ul {
     transform: translateX(0);
   }
 
-  /* Force white links inside open dark drawer */
+  /* Blue links inside drawer (same as desktop) */
   .sidenav .sidenav__link {
-    color: rgba(255,255,255,0.7) !important;
+    color: var(--blue) !important;
     text-shadow: none !important;
   }
   .sidenav .sidenav__link:hover,
-  .sidenav .sidenav__link.active { color: var(--white) !important; }
+  .sidenav .sidenav__link.active { color: var(--blue-dark) !important; }
   .sidenav .sidenav__link.active::before { background: var(--blue) !important; }
   .sidenav .sidenav__cta { display: block; }
 
