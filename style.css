@@ -194,7 +194,7 @@ ul {
 
 .sidenav__logo {
   font-family: 'Genty', cursive;
-  font-size: 1.5rem;
+  font-size: 2.2rem;
   font-weight: 400;
   letter-spacing: 0;
   color: var(--red);
@@ -457,7 +457,7 @@ ul {
 }
 
 .hero__logo-img {
-  width: clamp(180px, 30vw, 320px);
+  width: clamp(360px, 55vw, 640px);
   height: auto;
   display: block;
   margin: 0 auto 24px;
