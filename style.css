@@ -381,10 +381,11 @@ ul {
 
 .hero__parallax {
   position: absolute;
-  inset: -15%;
+  inset: 0;
   background-image: url('images/Screenshot 2026-04-02 at 22-49-28 (1) Instagram.png');
-  background-size: cover;
-  background-position: center;
+  background-size: 100% auto;
+  background-position: center 40%;
+  background-repeat: no-repeat;
   background-color: var(--cream);
   will-change: transform;
 }
