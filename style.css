@@ -382,7 +382,9 @@ ul {
 .hero__parallax {
   position: absolute;
   inset: -15%;
-  background-image: none;
+  background-image: url('images/Screenshot 2026-04-02 at 22-49-28 (1) Instagram.png');
+  background-size: cover;
+  background-position: center;
   background-color: var(--cream);
   will-change: transform;
 }
@@ -390,7 +392,7 @@ ul {
 .hero__overlay {
   position: absolute;
   inset: 0;
-  background: none;
+  background: rgba(253, 242, 227, 0.72);
 }
 
 /* Grain texture over hero */
