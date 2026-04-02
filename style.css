@@ -437,7 +437,7 @@ ul {
   letter-spacing: 0;
   color: var(--red);
   line-height: 1.1;
-  margin-bottom: 12px;
+  margin-bottom: 4px;
   opacity: 0; /* GSAP animates in */
 }
 
@@ -460,11 +460,11 @@ ul {
 
 .hero__logo-img {
   width: auto;
-  max-width: clamp(400px, 60vw, 700px);
-  max-height: 50vh;
+  max-width: clamp(480px, 70vw, 800px);
+  max-height: 60vh;
   height: auto;
   display: block;
-  margin: 0 auto 16px;
+  margin: 0 auto 4px;
 }
 
 .hero__scroll {
