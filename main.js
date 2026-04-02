@@ -12,22 +12,22 @@ const PROCESS_STEPS = [
   {
     icon: "☕",
     title: "Chat",
-    description: "We start with a conversation — tell us what you're dreaming of, your space, your style, and your budget."
+    description: "Tell us what you're after — your space, your budget, your vibe. No jargon, just a good yarn."
   },
   {
     icon: "✏️",
     title: "Design",
-    description: "We sketch up ideas and refine them together until the design feels exactly right for you."
+    description: "We draw it up and go back and forth until it looks right. You'll see exactly what you're getting before we start."
   },
   {
     icon: "🪵",
     title: "Build",
-    description: "We source beautiful sustainably-grown timber and get to work in our NZ workshop, crafting every detail by hand."
+    description: "We pick the timber, head into the workshop, and build it properly. No shortcuts."
   },
   {
     icon: "🚚",
     title: "Deliver",
-    description: "Your piece arrives carefully wrapped, ready to find its home. We follow up to make sure it's perfect."
+    description: "We bring it to you, get it in place, and make sure you're happy. Job done."
   }
 ];
 
@@ -113,37 +113,37 @@ const SERVICES = [
   {
     icon: "🌿",
     title: "Sustainable Sourcing",
-    description: "We work exclusively with sustainably sourced NZ and Aussie timber, and reclaimed materials where possible. Good for your home, good for the planet.",
+    description: "We use NZ and Aussie timber — sustainably sourced where we can, reclaimed when it makes sense. Good wood, used well.",
     cta: "Learn more"
   },
   {
     icon: "🪑",
     title: "Custom Furniture",
-    description: "From dining tables to bedframes, we design and build bespoke pieces tailored to your space, style, and budget. Every piece is one-of-a-kind.",
+    description: "Tables, beds, shelves, whatever you need built — we'll design it around your space and make it to last.",
     cta: "Start a project"
   },
   {
     icon: "🏠",
     title: "Interior Fit-outs",
-    description: "Kitchen joinery, built-in shelving, bathroom vanities, TV units — we work with architects and homeowners to bring interiors to life.",
+    description: "Kitchens, bathrooms, built-ins — we've done it all. We work alongside your architect or just directly with you.",
     cta: "Discuss your space"
   },
   {
     icon: "📐",
     title: "Design Consultation",
-    description: "Not sure where to start? A one-on-one design session to talk through your space, material choices, and what's possible within your budget.",
+    description: "Not sure what you want yet? Come have a chat. We'll figure it out together.",
     cta: "Book a consult"
   },
   {
     icon: "🎁",
     title: "Corporate & Gifting",
-    description: "Branded wooden items, custom gift sets, and office pieces for businesses. Minimum orders apply — get in touch to discuss.",
+    description: "Custom wooden pieces for businesses and gift sets. Talk to us about what you need.",
     cta: "Get a quote"
   },
   {
     icon: "🔧",
     title: "Repairs & Restoration",
-    description: "Got a piece of furniture that needs love? We restore, refinish, and repair timber furniture to bring it back to its former glory.",
+    description: "Old piece of furniture that needs some love? Send us a photo and we'll take a look.",
     cta: "Send a photo"
   }
 ];
