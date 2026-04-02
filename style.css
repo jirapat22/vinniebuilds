@@ -465,7 +465,6 @@ ul {
   height: auto;
   display: block;
   margin: 0 auto 4px;
-  mix-blend-mode: multiply;
 }
 
 .hero__scroll {
