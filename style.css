@@ -410,7 +410,7 @@ ul {
   position: relative;
   z-index: 2;
   text-align: center;
-  padding: 24px 64px;
+  padding: 0 64px;
   max-width: 840px;
   background: none;
   backdrop-filter: none;
@@ -426,7 +426,7 @@ ul {
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--blue);
-  margin-bottom: 10px;
+  margin-bottom: 4px;
   opacity: 0; /* GSAP animates in */
 }
 
