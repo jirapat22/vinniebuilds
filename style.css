@@ -460,9 +460,8 @@ ul {
 }
 
 .hero__logo-img {
-  width: auto;
-  max-width: clamp(480px, 70vw, 800px);
-  max-height: 60vh;
+  width: min(65vw, 800px);
+  max-height: 55vh;
   height: auto;
   display: block;
   margin: 0 auto 4px;
