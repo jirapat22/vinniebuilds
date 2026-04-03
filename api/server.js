@@ -4,12 +4,25 @@
    Uses Railway's PostgreSQL plugin for persistent storage
    ============================================================ */
 
-const express = require('express');
-const cors    = require('cors');
-const bcrypt  = require('bcryptjs');
-const jwt     = require('jsonwebtoken');
-const { Pool } = require('pg');
+const express    = require('express');
+const cors       = require('cors');
+const bcrypt     = require('bcryptjs');
+const jwt        = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
+const { Pool }   = require('pg');
 require('dotenv').config();
+
+/* ── Email transporter (Outlook SMTP) ── */
+const mailer = nodemailer.createTransport({
+  host: 'smtp-mail.outlook.com',
+  port: 587,
+  secure: false,
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+  tls: { ciphers: 'SSLv3' }
+});
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
@@ -400,6 +413,46 @@ app.delete('/api/categories/:id', requireAuth, async (req, res) => {
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: 'Server error' });
+  }
+});
+
+/* ════════════════════════════════════════════════
+   CONTACT ROUTE
+════════════════════════════════════════════════ */
+
+/* POST /api/contact — public */
+app.post('/api/contact', async (req, res) => {
+  const { name, email, project, message } = req.body || {};
+  if (!name || !email || !message) {
+    return res.status(400).json({ error: 'name, email and message are required' });
+  }
+
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    return res.status(503).json({ error: 'Email not configured' });
+  }
+
+  try {
+    await mailer.sendMail({
+      from: `"VinnieBuilds Website" <${process.env.SMTP_USER}>`,
+      to: process.env.SMTP_USER,
+      replyTo: `"${name}" <${email}>`,
+      subject: `New enquiry from ${name}`,
+      html: `
+        <h2 style="color:#42459E">New enquiry — VinnieBuilds</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+        <p><strong>Project type:</strong> ${project || 'Not specified'}</p>
+        <hr>
+        <p><strong>Message:</strong></p>
+        <p>${message.replace(/\n/g, '<br>')}</p>
+        <hr>
+        <p style="color:#999;font-size:12px">Sent from the VinnieBuilds contact form. Hit reply to respond directly to the customer.</p>
+      `
+    });
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Email error:', err);
+    res.status(500).json({ error: 'Failed to send email' });
   }
 });
 

@@ -387,34 +387,31 @@ function initNav() {
 
 /* ── CONTACT FORM ── */
 function initContactForm() {
-  const form = document.getElementById('contactForm');
+  const form    = document.getElementById('contactForm');
   const success = document.getElementById('formSuccess');
   if (!form) return;
 
   form.addEventListener('submit', async (e) => {
-    const action = form.getAttribute('action');
-    // If still using placeholder, let default HTML submit work
-    if (action.includes('YOUR_FORM_ID')) return;
-
     e.preventDefault();
     const btn = form.querySelector('button[type="submit"]');
-    btn.disabled = true;
+    btn.disabled    = true;
     btn.textContent = 'Sending…';
 
+    const name    = form.querySelector('[name="name"]')?.value?.trim()    || '';
+    const email   = form.querySelector('[name="email"]')?.value?.trim()   || '';
+    const project = form.querySelector('[name="project"]')?.value         || '';
+    const message = form.querySelector('[name="message"]')?.value?.trim() || '';
+
     try {
-      const res = await fetch(action, {
+      const res = await fetch(`${CONFIG.API_URL}/api/contact`, {
         method: 'POST',
-        body: new FormData(form),
-        headers: { Accept: 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, project, message })
       });
 
       if (res.ok) {
-        // Save to order queue for admin
+        // Log to admin order queue
         try {
-          const name    = form.querySelector('[name="name"]')?.value?.trim() || '';
-          const email   = form.querySelector('[name="email"]')?.value?.trim() || '';
-          const project = form.querySelector('[name="project"]')?.value || '';
-          const message = form.querySelector('[name="message"]')?.value?.trim() || '';
           const order = {
             id: 'ord_' + Date.now(),
             name, nickname: '', email, phone: '',
